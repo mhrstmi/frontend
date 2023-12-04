@@ -1,14 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { getCurrentUrl } from './getCurrentUrl';
-import { getWindowData } from './getWindowData';
 // import { getAuthStorage, setAuthStorage } from '@containers/auth';
-
-const { uuid } = getWindowData()
-
 
 const axiosInstance: AxiosInstance = axios.create({
   timeout: 150000,
-  baseURL: getCurrentUrl(false) + "/" + uuid + '/api/v2/user/',
+  baseURL: '',
 });
 
 axiosInstance.interceptors.request.use(
