@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ContextProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.DEV ? '/' : '/frontend/'}>
           <BaseLayout>
             <RenderRouts />
           </BaseLayout>
