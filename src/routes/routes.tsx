@@ -18,7 +18,7 @@ const routes = [
         isPublic: false
       },
       {
-        path: urls.dashboard,
+        path: urls.adminDashboard,
         component: <Dashboard />,
         isPublic: false
       },
@@ -28,7 +28,7 @@ const routes = [
         isPublic: false
       },
       {
-        path: urls.calendar,
+        path: urls.adminCalendar,
         component: <Calendar />,
         isPublic: false
       }
