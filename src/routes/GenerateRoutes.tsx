@@ -9,7 +9,7 @@ const generateFlattenRoutes = (routes) => {
   }
   
   export const renderRoutes = (mainRoutes) => {
-    const Routes: React.FC<{isAuthorized: boolean}> = ({ isAuthorized }) => {
+    const Routes = () => {
         const layouts = mainRoutes.map(({ layout, routes }, index) => {
             const subRoutes = generateFlattenRoutes(routes);
 
@@ -17,7 +17,7 @@ const generateFlattenRoutes = (routes) => {
                 <Route key={index} element={layout}>
                     {subRoutes.map(({ component, path, isPublic }, index) => {
                         return (
-                            <Route element={<ProtectedRoute isPublic={isPublic} isAuthorized={isAuthorized}  />}>
+                            <Route element={<ProtectedRoute isPublic={isPublic} />}>
                                 {component && path && (<Route key={index} element={component} path={path} />)}
                             </Route>
                         )

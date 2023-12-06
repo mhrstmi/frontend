@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useStateContext } from '../contexts/ContextProvider';
+import { useStateContext } from '../providers/ContextProvider';
 
 const Button: React.FC<any>  = ({ icon, bgColor, color, bgHoverColor, size, text, borderRadius, width }) => {
   const { setIsClicked, initialState }: any = useStateContext();

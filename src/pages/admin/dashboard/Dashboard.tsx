@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStateContext } from '../../../contexts/ContextProvider';
+import { useStateContext } from '../../../providers/ContextProvider';
 
 
 const Dashboard = () => {

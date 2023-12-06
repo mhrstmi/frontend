@@ -1,7 +1,7 @@
 import React from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
 import { Button } from '.';
-import { useStateContext } from '../contexts/ContextProvider';
+import { useStateContext } from '../providers/ContextProvider';
 
 const Notification = () => {
   const { currentColor }: any = useStateContext();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
-import { useStateContext } from '../contexts/ContextProvider';
+import { useStateContext } from '../providers/ContextProvider';
 
 const ThemeSettings = () => {
   const { setColor, setMode, currentMode, currentColor, setThemeSettings }: any = useStateContext();

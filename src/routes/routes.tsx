@@ -6,11 +6,17 @@ import Orders from "@pages/admin/orders";
 import Calendar from "@pages/admin/calendar";
 import BaseLayout from "@layouts/base";
 import Home from "@pages/home";
+import Login from "@pages/account/login";
 
 const routes = [
    {
     layout: <AdminLayout />,
     routes: [
+      {
+        path: urls.adminHome,
+        component: <Dashboard />,
+        isPublic: false
+      },
       {
         path: urls.dashboard,
         component: <Dashboard />,
@@ -34,6 +40,16 @@ const routes = [
       {
         path: urls.home,
         component: <Home />,
+        isPublic: true
+      }
+    ]
+  },
+  {
+    layout: <BaseLayout />,
+    routes: [
+      {
+        path: urls.login,
+        component: <Login />,
         isPublic: true
       }
     ]

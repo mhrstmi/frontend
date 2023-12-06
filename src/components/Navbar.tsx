@@ -4,7 +4,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md';
 import avatar from '../data/avatar.jpg';
 
 import { Notification, UserProfile } from '.';
-import { useStateContext } from '../contexts/ContextProvider';
+import { useStateContext } from '../providers/ContextProvider';
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }: any) => (
     <button

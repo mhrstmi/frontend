@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import '@assets/styles/style.css';
 import { FiSettings } from 'react-icons/fi';
-import { useStateContext } from '../../contexts/ContextProvider';
+import { useStateContext } from '../../providers/ContextProvider';
 import { Footer, Navbar, Sidebar, ThemeSettings } from '../../components';
 import { Outlet } from 'react-router-dom';
 

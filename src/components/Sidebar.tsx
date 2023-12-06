@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { SiShopware } from 'react-icons/si';
 import { links } from '../data/dummy';
-
-import { useStateContext } from '../contexts/ContextProvider';
+import { useStateContext } from '../providers/ContextProvider';
+import urls from '@routes/urls';
 
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize }: any = useStateContext();
@@ -22,7 +22,7 @@ const Sidebar = () => {
       {activeMenu && (
         <>
           <div className="flex justify-between items-center">
-            <Link to="/" onClick={handleCloseSideBar} className="items-center gap-3 mr-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
+            <Link to={urls.dashboard} onClick={handleCloseSideBar} className="items-center gap-3 mr-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
               <SiShopware /> <span>Shoppy</span>
             </Link>
           </div>
