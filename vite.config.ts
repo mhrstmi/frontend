@@ -13,7 +13,7 @@ export default defineConfig({
       'xmlhttprequest-ssl': './node_modules/engine.io-client/lib/xmlhttprequest.js',
     },
   },
-  // base: import.meta.env.DEV ? '/' : '/frontend/',
+  base: "/frontend/",
   plugins: [
     react(), 
     tsconfigPaths(),
