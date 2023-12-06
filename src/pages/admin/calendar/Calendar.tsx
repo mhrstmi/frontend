@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Header } from '../components';
+import { Header } from '../../../components';
 
 const PropertyPane = (props) => <div className="mt-5">{props.children}</div>;
 
-const Scheduler = () => {
+const Calendar = () => {
 
 
   return (
@@ -26,4 +26,4 @@ const Scheduler = () => {
   );
 };
 
-export default Scheduler;
+export default Calendar;

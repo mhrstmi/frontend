@@ -1,12 +1,8 @@
 const urls = {
     home: '/',
-    dashboard: '/dashboard',
-    ecommerce: '/ecommerce',
-    employees: '/employees',
-    customers: '/customers',
-    orders: '/orders',
-    editor: '/editor',
-    calendar: '/calendar',
+    dashboard: '/admin/dashboard',
+    orders: '/admin/orders',
+    calendar: '/admin/calendar',
 }
 
 export default urls;

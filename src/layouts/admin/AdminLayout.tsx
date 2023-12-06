@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import '@assets/styles/style.css';
 import { FiSettings } from 'react-icons/fi';
-import { useStateContext } from '../contexts/ContextProvider';
-import { Footer, Navbar, Sidebar, ThemeSettings } from '../components';
+import { useStateContext } from '../../contexts/ContextProvider';
+import { Footer, Navbar, Sidebar, ThemeSettings } from '../../components';
+import { Outlet } from 'react-router-dom';
 
-const BaseLayout: React.FC<any> = ({children}) => {
+const AdminLayout: React.FC<any> = () => {
     const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings }: any = useStateContext();
 
     useEffect(() => {
@@ -49,7 +50,7 @@ const BaseLayout: React.FC<any> = ({children}) => {
                 </div>
                 <div>
                     {themeSettings && (<ThemeSettings />)}
-                    {children}
+                    <Outlet />
                 </div>
                 <Footer />
             </div>
@@ -58,4 +59,4 @@ const BaseLayout: React.FC<any> = ({children}) => {
   )
 }
 
-export default BaseLayout;
+export default AdminLayout;

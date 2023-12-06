@@ -5,8 +5,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ContextProvider } from './contexts/ContextProvider'
-import RenderRouts from './routes/RenderRouts'
-import BaseLayout from './layout/BaseLayout'
+import { Routes } from './routes/routes'
 
 
 // Create a client
@@ -18,9 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
       <ContextProvider>
         <BrowserRouter basename={import.meta.env.DEV ? '/' : '/frontend/'}>
-          <BaseLayout>
-            <RenderRouts />
-          </BaseLayout>
+          <Routes isAuthorized={true} />
         </BrowserRouter>
       </ContextProvider>
     </QueryClientProvider>
