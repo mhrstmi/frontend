@@ -7,6 +7,7 @@ import Calendar from "@pages/admin/calendar";
 import BaseLayout from "@layouts/base";
 import Home from "@pages/home";
 import Login from "@pages/account/login";
+import AuthLayout from "@layouts/auth";
 
 const routes = [
    {
@@ -45,7 +46,7 @@ const routes = [
     ]
   },
   {
-    layout: <BaseLayout />,
+    layout: <AuthLayout />,
     routes: [
       {
         path: urls.login,
