@@ -8,7 +8,7 @@ const urls = {
     adminCalendar: '/admin/calendar',
 
     // auth
-    login: '/login'
+    login: '/account/login'
 }
 
 export default urls;

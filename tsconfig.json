@@ -20,6 +20,7 @@
 
     "baseUrl": "src",
     "paths": {
+      "@_types/*": ["types/*"],
       "@root/*": ["../*"],
       "@src/*": ["../src/*"],
       "@routes/*": ["routes/*"],
@@ -29,7 +30,8 @@
       "@hooks/*": ["hooks/*"],
       "@designSystem/*": ["designSystem/*"],
       "@assets/*": ["assets/*"],
-      "@layouts/*": ["layouts/*"]
+      "@layouts/*": ["layouts/*"],
+      "@providers/*": ["providers/*"]
     }
   },
   "include": ["src"],

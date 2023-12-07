@@ -1,25 +1,25 @@
 import { useInfiniteQuery, useMutation, useQuery } from 'react-query';
 import request from '@utils/request';
+import { paths } from '@_types/serverTypes';
+import { ApiConfig, ApiMethod, ApiUseRequest } from './useAPI.types';
 
-const useAPI = (
-  endpoint,
-  method,
-  config,
+const useAPI = <TEndpoint extends keyof paths, TMethod extends ApiMethod<TEndpoint>, TInfinite extends boolean>(
+  endpoint: TEndpoint,
+  method: TMethod,
+  config: ApiConfig<TEndpoint, TMethod, TInfinite>,
 ) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { param, query, headers, axiosRequestConfig = {}, reactQueryOptions = {} } = config as any;
 
   const key = config?.key ?? [endpoint, method, param, query].filter(Boolean);
   const isMutation: boolean = (method as string).toLowerCase() !== 'get';
   const isInfinite: boolean = !isMutation && reactQueryOptions?.infinite;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const useRequest = (isMutation ? useMutation : isInfinite ? useInfiniteQuery : useQuery) as any
+  const useRequest: ApiUseRequest<TEndpoint, TMethod, TInfinite> = (
+    isMutation ? useMutation : isInfinite ? useInfiniteQuery : useQuery
+  ) as ApiUseRequest<TEndpoint, TMethod, TInfinite>;
 
-    
   return useRequest(
     key,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async (variables: any = undefined) => {
       const _param = variables?.pageParam?.param || param;
       const url: string = Object.keys(_param || {}).reduce((url: string, key: string) => {
@@ -40,4 +40,3 @@ const useAPI = (
 };
 
 export default useAPI;
-

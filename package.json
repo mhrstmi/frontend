@@ -10,12 +10,15 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "api-gen": "node -r dotenv/config scripts/apiGen.mjs"
   },
   "dependencies": {
+    "@types/node": "^20.10.4",
     "antd": "^5.12.1",
     "axios": "^1.6.0",
     "clipboard-copy": "^4.0.1",
+    "dotenv": "^16.3.1",
     "file-loader": "^6.2.0",
     "flowbite": "^1.8.1",
     "flowbite-react": "^0.6.4",
@@ -23,6 +26,8 @@
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
     "match-sorter": "^6.3.1",
+    "openapi-typescript": "^6.7.2",
+    "prettier": "^3.1.0",
     "react": "^18.2.0",
     "react-countdown": "^2.3.5",
     "react-dom": "^18.2.0",
@@ -34,6 +39,7 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "devDependencies": {
+    "@rollup/plugin-replace": "^5.0.5",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

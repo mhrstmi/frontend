@@ -3,7 +3,7 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 const axiosInstance: AxiosInstance = axios.create({
   timeout: 150000,
-  baseURL: '',
+  baseURL: import.meta.env['REACT_APP_API_URL'],
 });
 
 axiosInstance.interceptors.request.use(
@@ -16,6 +16,11 @@ axiosInstance.interceptors.request.use(
       ...(config?.headers || {}),
     };
 
+    // const { accessToken = undefined } = getAuthStorage();
+    // if (accessToken) {
+    //   headers['Authorization'] = `Bearer ${accessToken}`;
+    // }
+
     return Object.assign(config, { headers });
   },
   (error) => Promise.reject(error),
@@ -23,10 +28,15 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response.data,
   (error) => {
+    if ([401].includes(error?.response?.status)) {
+      // setAuthStorage(null);
+      window.location.replace(`/account/login`);
+    }
+
 
     const { error_description, message } = error?.response?.data || {};
     console.log(error?.response?.data);
-    const errorText =
+    let errorText =
       error_description || message || (!error?.response ? 'Can not connect to server.' : 'An unknown error occurred.');
 
     return Promise.reject(errorText);
