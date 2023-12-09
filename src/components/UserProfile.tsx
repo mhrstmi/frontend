@@ -4,9 +4,11 @@ import { Button } from '.';
 import { useStateContext } from '../providers/ContextProvider';
 import { userProfileData } from '../data/dummy';
 import avatar from '../data/avatar.jpg';
+import { useAuth } from '../providers/AuthProvider';
 
 const UserProfile = () => {
   const { currentColor }: any = useStateContext();
+  const { setToken }: any = useAuth()
 
   return (
     <div className="nav-item absolute left-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
@@ -50,7 +52,7 @@ const UserProfile = () => {
           </div>
         ))}
       </div>
-      <div className="mt-5">
+      <div onClick={() => setToken(false)} className="mt-5">
         <Button
           color="white"
           bgColor={currentColor}

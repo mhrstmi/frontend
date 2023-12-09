@@ -114,7 +114,7 @@ const Text: FC<IPropTypes> = ({
       id={id}
       className={TextClassName}
       style={{
-        fontFamily: fontFamily ? fontFamily : '',
+        fontFamily: fontFamily ? fontFamily : '"Noto Naskh Arabic", serif',
         color: customColor ? customColor : '',
       }}
       ref={(node) => {

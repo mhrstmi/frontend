@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import avatar from '../data/avatar.jpg';
-
-import { Notification, UserProfile } from '.';
+import { UserProfile } from '.';
 import { useStateContext } from '../providers/ContextProvider';
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }: any) => (
@@ -22,7 +21,15 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }: any) => (
 );
 
 const Navbar = () => {
-  const { currentColor, activeMenu, setActiveMenu, handleClick, isClicked, setScreenSize, screenSize }: any = useStateContext();
+  const { 
+    currentColor, 
+    activeMenu, 
+    setActiveMenu, 
+    handleClick, 
+    isClicked, 
+    setScreenSize, 
+    screenSize 
+  }: any = useStateContext();
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
@@ -45,10 +52,10 @@ const Navbar = () => {
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
   return (
-    <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative">
+    <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative dark:bg-main-dark-bg">
 
       <NavButton title="Menu" customFunc={handleActiveMenu} color={currentColor} icon={<AiOutlineMenu />} />
-      <div className="flex">
+      <div className="flex gap-10">
         <div
           className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
           onClick={() => handleClick('userProfile')}
@@ -67,7 +74,6 @@ const Navbar = () => {
           <MdKeyboardArrowDown className="text-gray-400 text-14" />
         </div>
 
-        {isClicked.notification && (<Notification />)}
         {isClicked.userProfile && (<UserProfile />)}
       </div>
     </div>
