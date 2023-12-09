@@ -6,7 +6,7 @@ const ThemeSettings = () => {
   const { setColor, setMode, currentMode, currentColor, setThemeSettings }: any = useStateContext();
 
   return (
-    <div className="bg-half-transparent w-screen fixed nav-item top-0 left-0">
+    <div className="bg-half-transparent w-screen fixed nav-item top-0 left-0 z-50">
       <div className="float-left h-screen dark:text-gray-200  bg-white dark:bg-[#484B52] w-400">
         <div className="flex justify-between items-center p-4 ml-4">
           <p className="font-semibold text-lg">Settings</p>

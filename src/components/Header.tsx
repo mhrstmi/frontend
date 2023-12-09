@@ -19,11 +19,11 @@ const Header: React.FC<any> = ({ section, title, navigateToAdd }) => {
     <div className="mb-10">
       <div className='flex flex-col gap-1'>
         <Text className="text-gray-400" fontSize='lg' fontWeight='medium'>{section}</Text>
-        <div className='flex justify-between items-center'>
-          <Text fontSize='3xl' fontWeight='black' className="tracking-tight text-slate-900">
+        <div className='flex md:justify-between md:items-center md:flex-row flex-col gap-3'>
+          <Text fontSize='2xl' fontWeight='black' className="tracking-tight text-slate-900">
             {title}
           </Text>
-          <Button onClick={navigateToAdd} className='flex items-center gap-3 py-5' style={{ backgroundColor: currentColor}}>
+          <Button onClick={navigateToAdd} className='flex items-center gap-3 md:w-fit w-full py-5' style={{ backgroundColor: currentColor}}>
             <MdOutlineAddCircle className='text-white text-lg' />
             <Text fontSize='lg' fontWeight='medium' className='text-white flex'>
               {'افزودن '}

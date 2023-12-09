@@ -9,7 +9,7 @@ const Button: React.FC<any>  = ({ icon, bgColor, color, bgHoverColor, size, text
     <button
       onClick={() => setIsClicked(initialState)}
       style={{ backgroundColor: bgColor, color, borderRadius }}
-      className={`p-3 w-${width} hover:drop-shadow-xl hover:bg-${bgHoverColor}`}
+      className={`w-${width} hover:drop-shadow-xl hover:bg-${bgHoverColor} h-fit`}
     >
       <Text fontSize={size} fontWeight='medium' >{icon} {text}</Text>
     </button>

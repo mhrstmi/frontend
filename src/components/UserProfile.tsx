@@ -12,7 +12,7 @@ const UserProfile = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="nav-item absolute left-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
+    <div className="nav-item z-50 absolute left-5 top-14 bg-gray-200 p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">
         <Text className="dark:text-gray-200" fontSize='lg' fontWeight="semibold">پروفایل ادمین</Text>
         <Button

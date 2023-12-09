@@ -37,7 +37,7 @@ const Login: React.FC = () => {
         initialValues={{}}
         onFinish={onFinish}
       >
-        <section className="bg-blue-500 bg-blur-lg bg-opacity-20 min-h-screen flex items-center justify-center">
+        <section className="bg-gray-200 min-h-screen flex items-center justify-center">
           <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-5xl p-5 items-center">
             <div className="md:w-1/2 px-8 md:px-16">
               <div className='flex flex-col gap-2'>

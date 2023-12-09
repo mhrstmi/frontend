@@ -25,7 +25,7 @@ const Sidebar = () => {
         <>
           <div className="flex justify-between items-center">
             <Link to={urls.adminDashboard} onClick={handleCloseSideBar} className="items-center gap-3 mr-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
-              <GrUserAdmin className='text-2xl font-black mb-2' /> <Text fontSize='2xl' fontWeight='black'>ادمین</Text>
+              <GrUserAdmin className='text-2xl font-black mb-2' /> <Text fontSize='2xl' fontWeight='black'>داشبورد ادمین</Text>
             </Link>
           </div>
           <div className="mt-10 ">
