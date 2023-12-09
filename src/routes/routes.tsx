@@ -2,12 +2,13 @@ import urls from "./urls";
 import { renderRoutes } from "./GenerateRoutes";
 import AdminLayout from "@layouts/admin/AdminLayout";
 import Dashboard from "@pages/admin/dashboard";
-import Orders from "@pages/admin/orders";
-import Calendar from "@pages/admin/calendar";
 import BaseLayout from "@layouts/base";
 import Home from "@pages/home";
 import Login from "@pages/account/login";
 import AuthLayout from "@layouts/auth";
+import Knowledge from "@pages/admin/knowledge";
+import Research from "@pages/admin/research";
+import Library from "@pages/admin/library";
 
 const routes = [
    {
@@ -24,13 +25,23 @@ const routes = [
         isPublic: false
       },
       {
-        path: urls.orders,
-        component: <Orders />,
+        path: urls.adminKnowledge,
+        component: <Knowledge />,
+        isPublic: false
+      },
+      {
+        path: urls.adminResearch,
+        component: <Research />,
+        isPublic: false
+      },
+      {
+        path: urls.adminLibrary,
+        component: <Library />,
         isPublic: false
       },
       {
         path: urls.adminCalendar,
-        component: <Calendar />,
+        component: <Library />,
         isPublic: false
       }
     ]

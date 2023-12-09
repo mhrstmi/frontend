@@ -52,7 +52,7 @@ const AdminLayout: React.FC<any> = () => {
                     {themeSettings && (<ThemeSettings />)}
                     <Outlet />
                 </div>
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </div>
     </div>

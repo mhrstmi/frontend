@@ -4,7 +4,9 @@ const urls = {
     // admin
     adminHome: '/admin',
     adminDashboard: '/admin/dashboard',
-    orders: '/admin/orders',
+    adminResearch: '/admin/research',
+    adminKnowledge: '/admin/knowledge',
+    adminLibrary: '/admin/library',
     adminCalendar: '/admin/calendar',
 
     // auth

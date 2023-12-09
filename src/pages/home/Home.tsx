@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div className='h-screen w-screen flex justify-center items-center gap-5'>
       <Button className='bg-blue-500 text-white' onClick={() => navigate(urls.login)}>صفحه ورود به داشبورد</Button>
-      <Button className='bg-red-500 text-white' onClick={() => navigate(urls.adminHome)}>صفحه داشبورد ادمین</Button>
+      <Button className='bg-red-500 text-white' onClick={() => navigate(urls.adminDashboard)}>صفحه داشبورد ادمین</Button>
     </div>
   )
 }

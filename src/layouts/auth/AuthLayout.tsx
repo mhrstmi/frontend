@@ -23,7 +23,7 @@ export default function AuthLayout() {
   return (
     <>
       {token ? (
-        <Navigate to={urls.adminHome} />
+        <Navigate to={urls.adminDashboard} />
       ) : (
         <>
           <section className="w-screen h-screen overflow-hidden">

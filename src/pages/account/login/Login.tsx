@@ -18,13 +18,13 @@ const Login: React.FC = () => {
 
   const onFinish = async (values) => {
     try {
-      const res = await loginRequest.mutateAsync({
-        userName: form.getFieldValue("userName"),
-        password: form.getFieldValue("password")
-      })
+      // const res = await loginRequest.mutateAsync({
+      //   userName: form.getFieldValue("userName"),
+      //   password: form.getFieldValue("password")
+      // })
 
-      setToken(res.token)
-      navigate(urls.adminHome)
+      // setToken(res.token)
+      navigate(urls.adminDashboard)
     } catch(err) {
       console.log(err)
     }
@@ -37,7 +37,7 @@ const Login: React.FC = () => {
         initialValues={{}}
         onFinish={onFinish}
       >
-        <section className="bg-[#98fb98] bg-opacity-20 min-h-screen flex items-center justify-center">
+        <section className="bg-blue-500 bg-blur-lg bg-opacity-20 min-h-screen flex items-center justify-center">
           <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-5xl p-5 items-center">
             <div className="md:w-1/2 px-8 md:px-16">
               <div className='flex flex-col gap-2'>

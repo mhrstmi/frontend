@@ -4,6 +4,8 @@ import { MdKeyboardArrowDown } from 'react-icons/md';
 import avatar from '../data/avatar.jpg';
 import { UserProfile } from '.';
 import { useStateContext } from '../providers/ContextProvider';
+import AdminPng from '@assets/images/admin-profile.png'
+
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }: any) => (
     <button
@@ -62,13 +64,12 @@ const Navbar = () => {
         >
           <img
             className="rounded-full w-8 h-8"
-            src={avatar}
+            src={AdminPng}
             alt="user-profile"
           />
           <p>
-            <span className="text-gray-400 text-14">Hi,</span>{' '}
             <span className="text-gray-400 font-bold ml-1 text-14">
-              Michael
+              پروفایل ادمین
             </span>
           </p>
           <MdKeyboardArrowDown className="text-gray-400 text-14" />

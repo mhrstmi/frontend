@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { SiShopware } from 'react-icons/si';
-import { links } from '../data/dummy';
-import { useStateContext } from '../providers/ContextProvider';
+import { links } from './links';
+import { useStateContext } from '@providers/ContextProvider';
 import urls from '@routes/urls';
+import { GrUserAdmin } from "react-icons/gr";
+import Text from '../Text';
+
 
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize }: any = useStateContext();
@@ -23,19 +25,19 @@ const Sidebar = () => {
         <>
           <div className="flex justify-between items-center">
             <Link to={urls.adminDashboard} onClick={handleCloseSideBar} className="items-center gap-3 mr-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
-              <SiShopware /> <span>Shoppy</span>
+              <GrUserAdmin className='text-2xl font-black mb-2' /> <Text fontSize='2xl' fontWeight='black'>ادمین</Text>
             </Link>
           </div>
           <div className="mt-10 ">
             {links.map((item) => (
               <div key={item.title}>
-                <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
+                <Text className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase" fontSize='xl' fontWeight='heavy'>
                   {item.title}
-                </p>
+                </Text>
                 {item.links.map((link) => (
                   <NavLink
-                    to={`/${link.name}`}
-                    key={link.name}
+                    to={`${link.link}`}
+                    key={link.link}
                     onClick={handleCloseSideBar}
                     style={({ isActive }) => ({
                       backgroundColor: isActive ? currentColor : '',
@@ -43,7 +45,7 @@ const Sidebar = () => {
                     className={({ isActive }) => (isActive ? activeLink : normalLink)}
                   >
                     {link.icon}
-                    <span className="capitalize ">{link.name}</span>
+                    <Text className="capitalize " fontSize='lg' fontWeight='medium'>{link.name}</Text>
                   </NavLink>
                 ))}
               </div>

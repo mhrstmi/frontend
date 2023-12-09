@@ -1,19 +1,20 @@
-import React from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
-import { Button } from '.';
-import { useStateContext } from '../providers/ContextProvider';
-import { userProfileData } from '../data/dummy';
-import avatar from '../data/avatar.jpg';
-import { useAuth } from '../providers/AuthProvider';
+import { Button, Text } from '.';
+import { useStateContext } from '@providers/ContextProvider';
+import { useAuth } from '@providers/AuthProvider';
+import AdminPng from '@assets/images/admin-profile.png'
+import urls from '@routes/urls';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
   const { currentColor }: any = useStateContext();
   const { setToken }: any = useAuth()
+  const navigate = useNavigate()
 
   return (
     <div className="nav-item absolute left-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">
-        <p className="font-semibold text-lg dark:text-gray-200">User Profile</p>
+        <Text className="dark:text-gray-200" fontSize='lg' fontWeight="semibold">پروفایل ادمین</Text>
         <Button
           icon={<MdOutlineCancel />}
           color="rgb(153, 171, 180)"
@@ -25,38 +26,19 @@ const UserProfile = () => {
       <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
         <img
           className="rounded-full h-24 w-24"
-          src={avatar}
+          src={AdminPng}
           alt="user-profile"
         />
-        <div>
-          <p className="font-semibold text-xl dark:text-gray-200"> Michael Roberts </p>
-          <p className="text-gray-500 text-sm dark:text-gray-400">  Administrator   </p>
-          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> info@shop.com </p>
+        <div className='flex flex-col gap-1'>
+          <Text className="dark:text-gray-200" fontSize='lg' fontWeight="semibold"> Admin </Text>
+          <Text className="text-gray-500 dark:text-gray-400" fontSize='sm' fontWeight='medium'>  Administrator   </Text>
         </div>
       </div>
-      <div>
-        {userProfileData.map((item, index) => (
-          <div key={index} className="flex gap-5 border-b-1 border-color p-4 hover:bg-light-gray cursor-pointer  dark:hover:bg-[#42464D]">
-            <button
-              type="button"
-              style={{ color: item.iconColor, backgroundColor: item.iconBg }}
-              className=" text-xl rounded-lg p-3 hover:bg-light-gray"
-            >
-              {item.icon}
-            </button>
-
-            <div>
-              <p className="font-semibold dark:text-gray-200 ">{item.title}</p>
-              <p className="text-gray-500 text-sm dark:text-gray-400"> {item.desc} </p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div onClick={() => setToken(false)} className="mt-5">
+      <div onClick={() => {setToken(false); navigate(urls.login)}} className="mt-5">
         <Button
-          color="white"
+          color="#fff"
           bgColor={currentColor}
-          text="Logout"
+          text="خروج از داشبورد"
           borderRadius="10px"
           width="full"
         />
