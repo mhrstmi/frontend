@@ -9,6 +9,8 @@ import AuthLayout from "@layouts/auth";
 import Knowledge from "@pages/admin/knowledge";
 import Research from "@pages/admin/research";
 import Library from "@pages/admin/library";
+import UploadKnowledge from "../pages/admin/knowledge/uploadKnowledge";
+import UploadResearch from "../pages/admin/research/uploadResearch";
 
 const routes = [
    {
@@ -27,11 +29,21 @@ const routes = [
       {
         path: urls.adminKnowledge,
         component: <Knowledge />,
-        isPublic: false
+        isPublic: false,
+      },
+      {
+        path: urls.adminUploadKnowledge,
+        component: <UploadKnowledge />,
+        isPublic: false,
       },
       {
         path: urls.adminResearch,
         component: <Research />,
+        isPublic: false,
+      },
+      {
+        path: urls.adminUploadResearch,
+        component: <UploadResearch />,
         isPublic: false
       },
       {

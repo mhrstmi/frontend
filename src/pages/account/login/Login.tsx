@@ -38,16 +38,16 @@ const Login: React.FC = () => {
         onFinish={onFinish}
       >
         <section className="bg-gray-200 min-h-screen flex items-center justify-center">
-          <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-5xl p-5 items-center">
+          <div className="bg-light-green flex rounded-2xl shadow-lg max-w-5xl p-5 items-center">
             <div className="md:w-1/2 px-8 md:px-16">
               <div className='flex flex-col gap-2'>
                 <div className='flex items-center justify-between'>
-                  <Text className="text-[#002D74]" fontSize='2xl' fontWeight='bold'>ورود</Text>
-                  <Button onClick={() => navigate(urls.home)} type="primary" className="bg-[#002D74] text-white hover:scale-105 duration-300">
+                  <Text className="text-dark-green" fontSize='2xl' fontWeight='bold'>ورود</Text>
+                  <Button onClick={() => navigate(urls.home)} type="primary" className="bg-mid-green text-white hover:scale-105 duration-300">
                     <Text fontSize='base' fontWeight='medium' color="white">بازگشت</Text>
                   </Button>
                 </div>
-                <Text className="mt-4 text-[#002D74]" fontSize='xs'>برای ورود به داشبورد ادمین نام کاربری و رمزعبور خود را وارد کنید</Text>
+                <Text className="mt-4 text-dark-green" fontSize='xs'>برای ورود به داشبورد ادمین نام کاربری و رمزعبور خود را وارد کنید</Text>
               </div>
               <div className="flex flex-col gap-4">
                 <Form.Item
@@ -55,7 +55,7 @@ const Login: React.FC = () => {
                   rules={[{ required: true, message: <Text fontSize='sm' fontWeight='normal'>لطفا نام کاربری خود را وارد کنید</Text> }]}
                 >
                   <Input 
-                    className="p-2 mt-8 rounded-xl border" 
+                    className="p-2 mt-8 rounded-lg border border-solid border-mid-green" 
                     type="text" 
                     placeholder="نام کاربری"
                     size='large'
@@ -67,7 +67,7 @@ const Login: React.FC = () => {
                     rules={[{ required: true, message: <Text fontSize='sm' fontWeight='normal'>لطفا رمزعبور خود را وارد کنید</Text> }]}
                   >
                     <Input
-                      className="p-2 rounded-xl border w-full" 
+                      className="p-2 rounded-lg w-full border border-solid border-mid-green" 
                       type="password" 
                       placeholder="رمزعبور"
                       size='large'
@@ -79,7 +79,7 @@ const Login: React.FC = () => {
                      type="primary" 
                      size='large'
                      htmlType="submit" 
-                     className="w-full bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300"
+                     className="w-full bg-mid-green rounded-xl text-white py-2 hover:scale-105 duration-300"
                    >
                      <Text fontSize='lg' fontWeight='medium'>
                         ورود

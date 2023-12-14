@@ -5,8 +5,8 @@ import useAPI from '@hooks/useAPI';
 import { Button, Spin } from 'antd';
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-import { Text } from '../../../components';
-import urls from '../../../routes/urls';
+import Text from '@components/Text';
+import urls from '../../../../routes/urls';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -43,24 +43,14 @@ const columns = [
   }
 ]
 
-const Knowledge = () => {
+const UploadKnowledge = () => {
   const navigate = useNavigate()
-  const getKnowledge = useAPI('/knowledge/list', 'get', {})
+  const postKnowledge = useAPI('/admin/knowledge', 'post', {})
   
   return (
     <div className="p-3 md:p-10 rounded-3xl h-full">
-      <Header title="دانشنامه ها" section={Sections.VIEW} onClick={() => navigate(urls.adminUploadKnowledge)} />
-      <Spin spinning={getKnowledge.isLoading || getKnowledge.isRefetching}>
-        <CustomTable 
-          columns={columns} 
-          data={getKnowledge?.data && getKnowledge?.data.map(item => ({
-            id: item.id,
-            title: item.title,
-            body: item.body,
-          }))}
-        />
-      </Spin>
+      <Header title="دانشنامه ها" section={Sections.ADD} onClick={() => {}} />
     </div>
   );
 };
-export default Knowledge;
+export default UploadKnowledge;

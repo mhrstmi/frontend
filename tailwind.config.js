@@ -6,10 +6,30 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      display: ['Open Sans', 'sans-serif'],
-      body: ['Open Sans', 'sans-serif'],
+      display: ['Noto Naskh Arabic', 'serif'],
+      body: ['Noto Naskh Arabic', 'serif'],
     },
     extend: {
+      colors: {
+        'main-bg': '#FAFBFB',
+        'main-dark-bg': '#20232A',
+        'secondary-dark-bg': '#33373E',
+        'light-gray': '#F7F7F7',
+        'half-transparent': 'rgba(0, 0, 0, 0.5)',
+        'light-green': '#eae7d9',
+        'mid-green': '#ada069',
+        'dark-green': '#3a4a19'
+      },
+      backgroundColors: {
+        'main-bg': '#FAFBFB',
+        'main-dark-bg': '#20232A',
+        'secondary-dark-bg': '#33373E',
+        'light-gray': '#F7F7F7',
+        'half-transparent': 'rgba(0, 0, 0, 0.5)',
+        'light-green': '#eae7d9',
+        'mid-green': '#ada069',
+        'dark-green': '#3a4a19'
+      },
       fontSize: {
         14: '14px',
       },
@@ -35,19 +55,15 @@ module.exports = {
         30: '7.5rem',
         32: '8rem'
       },
-      backgroundColor: {
-        'main-bg': '#FAFBFB',
-        'main-dark-bg': '#20232A',
-        'secondary-dark-bg': '#33373E',
-        'light-gray': '#F7F7F7',
-        'half-transparent': 'rgba(0, 0, 0, 0.5)',
-      },
+
       borderWidth: {
         1: '1px',
       },
+
       borderColor: {
         color: 'rgba(0, 0, 0, 0.1)',
       },
+
       width: {
         400: '400px',
         760: '760px',
@@ -57,9 +73,11 @@ module.exports = {
         1200: '1200px',
         1400: '1400px',
       },
+
       height: {
         80: '80px',
       },
+      
       minHeight: {
         590: '590px',
       },

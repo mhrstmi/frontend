@@ -5,7 +5,9 @@ const urls = {
     adminHome: '/admin',
     adminDashboard: '/admin/dashboard',
     adminResearch: '/admin/research',
+    adminUploadResearch: '/admin/research/upload',
     adminKnowledge: '/admin/knowledge',
+    adminUploadKnowledge: '/admin/knowledge/upload',
     adminLibrary: '/admin/library',
     adminCalendar: '/admin/calendar',
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import Text from './Text';
 import { Button } from 'antd';
-import { useStateContext } from '../providers/ContextProvider';
 import { MdOutlineAddCircle } from "react-icons/md";
 
 
@@ -12,8 +11,7 @@ export enum Sections {
 }
 
 
-const Header: React.FC<any> = ({ section, title, navigateToAdd }) => {
-  const { currentColor }: any = useStateContext();
+const Header: React.FC<any> = ({ section, title, onClick }) => {
   
   return (
     <div className="mb-10">
@@ -23,10 +21,12 @@ const Header: React.FC<any> = ({ section, title, navigateToAdd }) => {
           <Text fontSize='2xl' fontWeight='black' className="tracking-tight text-slate-900">
             {title}
           </Text>
-          <Button onClick={navigateToAdd} className='flex items-center gap-3 md:w-fit w-full py-5' style={{ backgroundColor: currentColor}}>
+          <Button onClick={onClick} className='flex items-center gap-3 md:w-fit w-full py-5 bg-mid-green'>
             <MdOutlineAddCircle className='text-white text-lg' />
             <Text fontSize='lg' fontWeight='medium' className='text-white flex'>
-              {'افزودن '}
+              {section === Sections.ADD && 'آپلود کردن'}
+              {section === Sections.VIEW && 'افزودن'}
+              {section === Sections.EDIT && 'اعمال ویرایش'}
             </Text>
           </Button>
         </div>

@@ -5,7 +5,7 @@ const { Column } = Table;
 
 
 const CustomTable: React.FC<any> = ({ columns, data }) => (
-  <Table dataSource={data} className='overflow-x-auto h-full'>
+  <Table dataSource={data} className='overflow-x-auto h-full w-full'>
     {columns.map( item => (
       <Column 
         title={item.title}
