@@ -11,9 +11,9 @@ const BaseLayout = () => {
   const navigate = useNavigate()
   
   return (
-    <Layout className='overflow-x-hidden'>
-      <Header className=' bg-light-green flex items-center justify-center p-3 h-20'>
-        <div className='w-2/3 grid grid-cols-3'>
+    <Layout dir="rtl" className='overflow-x-hidden bg-light-green min-h-screen'>
+      <Header className='bg-transparent flex items-center justify-center px-5 py-2 md:px-5 md:py-2 h-fit'>
+        <div className='w-full md:w-2/3 md:min-w-[768px] grid grid-cols-3'>
           <div className='flex items-center justify-start'>
             <Button className='bg-mid-green w-fit' onClick={() => navigate(urls.login)}>
               <Text fontSize='base' fontWeight='normal' className='text-white'>ورود</Text>
@@ -25,17 +25,19 @@ const BaseLayout = () => {
             </div>  
           </div>
           <div dir="ltr" className='flex items-center gap-3' >
-            <PhoneOutlined className='mb-2 text-lg text-blue-500' />
-            <Text fontSize='sm' fontWeight='heavy' className='text-dark-green flex items-center'>+98 903-786-543</Text>
+            <PhoneOutlined className='md:mb-2 text-lg text-blue-500' />
+            <Text fontSize='sm' fontWeight='heavy' className='text-dark-green hidden md:flex items-center'>+98 903-786-543</Text>
           </div>
         </div>
       </Header>
-      <Layout>
+      <Layout dir="rtl" className='bg-light-green'>
         <Outlet />
       </Layout>
-      {/* <Footer>
-        hi
-      </Footer> */}
+      <Footer className='bg-transparent h-fit px-5 py-2 md:px-5 md:py-2 flex items-center justify-center'>
+        <div className='w-full md:w-2/3 md:min-w-[768px] grid grid-cols-3'>
+          hi
+        </div>
+      </Footer>
     </Layout>
   )
 }

@@ -7,7 +7,7 @@
 
 export interface paths {
   "": {
-    get: operations["AppController_getHello"];
+    get: operations["LibraryController_getAll"];
   };
   "/knowledge": {
     get: operations["KnowledgeController_getAll"];
@@ -56,6 +56,16 @@ export interface paths {
   };
   "/library": {
     post: operations["AdminLibraryController_createLibrary"];
+  };
+  "/library/{id}": {
+    put: operations["AdminLibraryController_updateLibrary"];
+    delete: operations["AdminLibraryController_deleteLibrary"];
+  };
+  "/list": {
+    get: operations["LibraryController_getList"];
+  };
+  "/{id}": {
+    get: operations["LibraryController_getDetail"];
   };
   "/seed": {
     post: operations["SeedController_seedDatabase"];
@@ -157,6 +167,23 @@ export interface components {
       title: string;
       comment?: string;
     };
+    LibraryAttachmentFullOutputDto: {
+      name: string;
+      fileName: string;
+      path: string;
+      mimeType: string;
+    };
+    LibraryFullOutPutDto: {
+      id: number;
+      title: string;
+      comment?: string;
+      libraryAttachment?: components["schemas"]["LibraryAttachmentFullOutputDto"][];
+    };
+    LibraryListOutPutDto: {
+      id: number;
+      title: string;
+      comment?: string;
+    };
   };
   responses: never;
   parameters: never;
@@ -171,11 +198,16 @@ export type external = Record<string, never>;
 
 export interface operations {
 
-  AppController_getHello: {
+  LibraryController_getAll: {
+    parameters: {
+      query?: {
+        search?: string;
+      };
+    };
     responses: {
       200: {
         content: {
-          "application/json": string;
+          "application/json": components["schemas"]["LibraryFullOutPutDto"][];
         };
       };
     };
@@ -334,6 +366,8 @@ export interface operations {
     parameters: {
       query?: {
         search?: string;
+        from?: string;
+        to?: string;
       };
     };
     responses: {
@@ -443,6 +477,67 @@ export interface operations {
       201: {
         content: {
           "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  AdminLibraryController_updateLibrary: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["LibraryDto"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  AdminLibraryController_deleteLibrary: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  LibraryController_getList: {
+    parameters: {
+      query?: {
+        search?: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["LibraryListOutPutDto"][];
+        };
+      };
+    };
+  };
+  LibraryController_getDetail: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["LibraryFullOutPutDto"];
         };
       };
     };
