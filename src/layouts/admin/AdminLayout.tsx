@@ -35,7 +35,7 @@ const AdminLayout: React.FC = () => {
                 className='rounded-lg w-full h-full'
                 src={SoldierCloth}
             />
-            <Button className='bg-red-500' onClick={() => { setToken(undefined); navigate(urls.login)}}>
+            <Button className='bg-red-500 flex items-center justify-center' onClick={() => { setToken(undefined); navigate(urls.login)}}>
                 <Text fontSize='base' fontWeight='normal' className='text-white'>خروج</Text>
             </Button>
         </Header>

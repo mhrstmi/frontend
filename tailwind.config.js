@@ -6,8 +6,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      display: ['Noto Naskh Arabic', 'serif'],
-      body: ['Noto Naskh Arabic', 'serif'],
+      main: ["IRANSansWeb"]
     },
     extend: {
       colors: {
@@ -30,13 +29,17 @@ module.exports = {
         'mid-green': '#ada069',
         'dark-green': '#3a4a19'
       },
-      fontSize: {
-        14: '14px',
-      },
       fontWeight: {
-        regular: 400, // equal to medium in tailwind - because other guys use this weight, I need to extend this here
-        heavy: 700, // equal to bold in tailwind 
-        black: 700
+        thin: 100,
+        extralight: 200,
+        light: 300,
+        normal: 400,
+        regular: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+        black: 900,
       },
   
       lineHeight: {
@@ -91,30 +94,19 @@ module.exports = {
       '2xl': '1840px',
       '3xl': '2400px',
     },
-    /* fontSize: {
-      xs: ['0.75rem', '1.125rem'],    //    ['12px', '18px'],
-      sm: ['0.875rem', '1.5rem'],     //    ['14px', '24px'],
-      base: ['1rem', '1.75rem'],      //    ['16px', '28px'],
-      md: ['1rem', '1.75rem'],        //    ['16px', '28px'],
-      lg: ['1.125rem', '2rem'],       //    ['18px', '32px'],
-      xl: ['1.25rem', '2rem'],        //    ['20px', '32px'],
-      '2xl': ['1.5rem', '2.5rem'],    //    ['24px', '40px'],
-      '3xl': ['1.75rem', '3rem'],     //    ['28px', '48px'],
-      '4xl': ['2rem', '3.733rem'],    //    ['32px', '56px'],
-      '5xl': ['2.5rem', '4.5rem'],    //    ['40px', '72px'],
-      '6xl': ['3.125rem', '5.312rem'] //    ['50px', '88px'] // font-size: 3.125rem, line-height: 5.312rem
-    }, */
-    /* fontWeight: {
-      thin: 100,
-      extraLight: 200,
-      light: 300,
-      regular: 400,
-      medium: 500,
-      semibold: 600,
-      bold: 700,
-      extrabold: 800,
-      black: 900,
-    }, */
+    // fontSize: {
+    //   xs: ['0.75rem', '1.125rem'],    //    ['12px', '18px'],
+    //   sm: ['0.875rem', '1.5rem'],     //    ['14px', '24px'],
+    //   base: ['1rem', '1.75rem'],      //    ['16px', '28px'],
+    //   md: ['1rem', '1.75rem'],        //    ['16px', '28px'],
+    //   lg: ['1.125rem', '2rem'],       //    ['18px', '32px'],
+    //   xl: ['1.25rem', '2rem'],        //    ['20px', '32px'],
+    //   '2xl': ['1.5rem', '2.5rem'],    //    ['24px', '40px'],
+    //   '3xl': ['1.75rem', '3rem'],     //    ['28px', '48px'],
+    //   '4xl': ['2rem', '3.733rem'],    //    ['32px', '56px'],
+    //   '5xl': ['2.5rem', '4.5rem'],    //    ['40px', '72px'],
+    //   '6xl': ['3.125rem', '5.312rem'] //    ['50px', '88px'] // font-size: 3.125rem, line-height: 5.312rem
+    // },
   },
   plugins: [
     // eslint-disable-next-line no-undef

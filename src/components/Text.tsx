@@ -106,6 +106,7 @@ const Text: FC<IPropTypes> = ({
     ${lineHeight ? `leading-${lineHeight}` : ''} 
     ${lineClamp ? `text-ellipsis line-clamp-${lineClamp}` : ''} 
     ${display ? display : ''} 
+    font-main
     ${onClick ? 'cursor-pointer' : ''} 
     ${className}`
 
@@ -114,7 +115,6 @@ const Text: FC<IPropTypes> = ({
       id={id}
       className={TextClassName}
       style={{
-        fontFamily: fontFamily ? fontFamily : '"Noto Naskh Arabic", serif',
         color: customColor ? customColor : '',
       }}
       ref={(node) => {

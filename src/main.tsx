@@ -1,11 +1,14 @@
 import '@assets/styles/index.css'
 import '@assets/styles/animate.css'
+// import '@assets/fonts/fonts.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Routes } from './routes/routes'
 import AuthProvider from './providers/AuthProvider'
+
+
 
 
 // Create a client

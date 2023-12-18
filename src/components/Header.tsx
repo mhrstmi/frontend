@@ -7,7 +7,7 @@ import { MdOutlineAddCircle } from "react-icons/md";
 export enum Sections {
   VIEW = "مشاهده",
   EDIT = "ویراش",
-  ADD = "افزودن",
+  ADD = "اضافه کردن",
 }
 
 
@@ -24,7 +24,7 @@ const Header: React.FC<any> = ({ section, title, onClick }) => {
           <Button onClick={onClick} className='flex items-center gap-3 md:w-fit w-full py-5 bg-mid-green'>
             {section === Sections.VIEW && <MdOutlineAddCircle className='text-white text-lg' />}
             <Text fontSize='lg' fontWeight='medium' className='text-white flex'>
-              {section === Sections.VIEW ? 'افزودن' : 'بازگشت'}
+              {section === Sections.VIEW ? Sections.ADD  : 'برگشت'}
             </Text>
           </Button>
         </div>

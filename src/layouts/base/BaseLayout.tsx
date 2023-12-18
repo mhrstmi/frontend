@@ -20,7 +20,7 @@ const BaseLayout = () => {
             </Button>
           </div>
           <div className='flex justify-center items-center rounded-lg'>
-            <div className='w-fit max-h-[70px] rounded-r-md rounded-se-[100px] bg-black flex justify-center items-center bg-opacity-30'>
+            <div className='w-fit max-h-[70px] rounded-r-md rounded-se-[100px] rounded-es-[100px] bg-black flex justify-center items-center bg-opacity-30'>
               <img className='w-2/3 object-fill' src={Inog} /> 
             </div>  
           </div>

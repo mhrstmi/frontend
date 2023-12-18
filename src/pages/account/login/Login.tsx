@@ -46,10 +46,10 @@ const Login: React.FC = () => {
                 <div className='flex items-center justify-between'>
                   <Text className="text-dark-green" fontSize='2xl' fontWeight='bold'>ورود</Text>
                   <Button onClick={() => navigate(urls.home)} type="primary" className="bg-mid-green text-white hover:scale-105 duration-300">
-                    <Text fontSize='base' fontWeight='medium' color="white">بازگشت</Text>
+                    <Text fontSize='base' fontWeight='medium' color="white">برگشت</Text>
                   </Button>
                 </div>
-                <Text className="mt-4 text-dark-green" fontSize='xs'>برای ورود به داشبورد ادمین نام کاربری و رمزعبور خود را وارد کنید</Text>
+                <Text className="mt-4 text-dark-green" fontSize='xs'>برای ورود به داشبورد ادمین نام کاربری و کلمه عبور خود را وارد کنید</Text>
               </div>
               <div className="flex flex-col gap-4">
                 <Form.Item
@@ -66,12 +66,12 @@ const Login: React.FC = () => {
                 <div className="relative">
                   <Form.Item
                     name="password"
-                    rules={[{ required: true, message: <Text fontSize='sm' fontWeight='normal'>لطفا رمزعبور خود را وارد کنید</Text> }]}
+                    rules={[{ required: true, message: <Text fontSize='sm' fontWeight='normal'>لطفا کلمه عبور خود را وارد کنید</Text> }]}
                   >
                     <Input
                       className="p-2 rounded-lg w-full border border-solid border-mid-green" 
                       type="password" 
-                      placeholder="رمزعبور"
+                      placeholder="کلمه عبور"
                       size='large'
                     />
                   </Form.Item>

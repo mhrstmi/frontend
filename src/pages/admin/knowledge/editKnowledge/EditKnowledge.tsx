@@ -98,14 +98,14 @@ const EditKnowledge = () => {
         </Form.Item>
         <Form.Item>
           <div className='flex flex-col gap-3'>
-            <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>آپلود فایل های دانشنامه</Text>
+            <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>فایل های دانشنامه</Text>
             <Dragger {...props} className='border-mid-green border-1 rounded-lg'>
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>
               <p className="ant-upload-text">
                 <Text fontSize='base' fontWeight='heavy' className='text-dark-green'>
-                 برای آپلود کلیک کنید یا فایل را به این قسمت بکشید و رها کنید
+                 برای اضافه کردن کلیک کنید یا فایل را به این قسمت بکشید و رها کنید
                 </Text>
               </p>
             </Dragger>

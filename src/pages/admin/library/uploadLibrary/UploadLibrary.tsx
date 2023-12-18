@@ -42,7 +42,7 @@ const UploadLibrary = () => {
         comment: form.getFieldValue('comment'),
         title: form.getFieldValue('title')
       })
-      message.success('با موفقیت آپلود شد')
+      message.success('با موفقیت اضافه شد')
       navigate(urls.adminLibrary)
     } catch(err){
       //@ts-ignore
@@ -53,7 +53,7 @@ const UploadLibrary = () => {
   
   return (
     <div className="p-3 md:p-10 rounded-3xl h-full overflow-y-auto">
-      <Header title="آپلود کتابخانه" section={Sections.ADD} onClick={() => navigate(urls.adminLibrary)} />
+      <Header title="ضافه کردن به کتابخانه" section={Sections.ADD} onClick={() => navigate(urls.adminLibrary)} />
       <Form
         form={form}
         layout="vertical"
@@ -84,14 +84,14 @@ const UploadLibrary = () => {
         </Form.Item>
         <Form.Item>
           <div className='flex flex-col gap-3'>
-            <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>آپلود فایل ها</Text>
+            <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>اضافه کردن فایل ها</Text>
             <Dragger {...props} className='border-mid-green border-1 rounded-lg'>
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>
               <p className="ant-upload-text">
                 <Text fontSize='base' fontWeight='heavy' className='text-dark-green'>
-                 برای آپلود کلیک کنید یا فایل را به این قسمت بکشید و رها کنید
+                 برای اضافه کردن کلیک کنید یا فایل را به این قسمت بکشید و رها کنید
                 </Text>
               </p>
             </Dragger>
@@ -100,7 +100,7 @@ const UploadLibrary = () => {
         <Form.Item>
           <Button type="primary" htmlType='submit' loading={postLibrary.isLoading} className='bg-dark-green flex items-center justify-center p-5'>
             <Text fontSize='lg' fontWeight='heavy'>
-              آپلود کردن
+              اضافه کردن 
             </Text>
           </Button>
         </Form.Item>

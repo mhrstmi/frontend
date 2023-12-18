@@ -27,7 +27,7 @@ const Research = () => {
     })
 
     confirm({
-      title: 'آیا از حذف این مورد اطمینان دارید؟',
+      title: 'میخواهید این مورد را حذف کنید؟',
       icon: <ExclamationCircleFilled />,
       okText: 'بله',
       okType: 'danger',

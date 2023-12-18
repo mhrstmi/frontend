@@ -27,7 +27,7 @@ const Library = () => {
     })
 
     confirm({
-      title: 'آیا از حذف این مورد اطمینان دارید؟',
+      title: 'میخواهید این مورد را حذف کنید؟',
       icon: <ExclamationCircleFilled />,
       okText: 'بله',
       okType: 'danger',
@@ -63,7 +63,7 @@ const Library = () => {
     {
       index: 'comment',
       key: 'comment',
-      title:'یادداشت',
+      title:'یاداشت',
       render: (comment) => <Text fontSize='base' fontWeight='medium' className='line-clamp-1 max-w-[200px] text-dark-green'>{comment}</Text>
     },
     {

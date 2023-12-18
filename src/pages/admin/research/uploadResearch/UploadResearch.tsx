@@ -43,7 +43,7 @@ const UploadResearch = () => {
         title: form.getFieldValue('title'),
         abstract: form.getFieldValue('abstract')
       })
-      message.success('با موفقیت آپلود شد')
+      message.success('با موفقیت اضافه شد')
       navigate(urls.adminResearch)
     } catch(err){
       //@ts-ignore
@@ -54,7 +54,7 @@ const UploadResearch = () => {
   
   return (
     <div className="p-3 md:p-10 rounded-3xl h-full overflow-y-auto">
-      <Header title="آپلود پژوهشنامه" section={Sections.ADD} onClick={() => navigate(urls.adminResearch)} />
+      <Header title="اضافه کردن پژوهشنامه" section={Sections.ADD} onClick={() => navigate(urls.adminResearch)} />
       <Form
         form={form}
         layout="vertical"
@@ -97,14 +97,14 @@ const UploadResearch = () => {
         </Form.Item>
         <Form.Item>
           <div className='flex flex-col gap-3'>
-            <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>آپلود فایل های پژوهشنامه</Text>
+            <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>اضافه کردن فایل های پژوهشنامه</Text>
             <Dragger {...props} className='border-mid-green border-1 rounded-lg'>
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>
               <p className="ant-upload-text">
                 <Text fontSize='base' fontWeight='heavy' className='text-dark-green'>
-                 برای آپلود کلیک کنید یا فایل را به این قسمت بکشید و رها کنید
+                 برای اضافه کردن کلیک کنید یا فایل را به این قسمت بکشید و رها کنید
                 </Text>
               </p>
             </Dragger>
@@ -113,7 +113,7 @@ const UploadResearch = () => {
         <Form.Item>
           <Button type="primary" htmlType='submit' loading={postResearch.isLoading} className='bg-dark-green flex items-center justify-center p-5'>
             <Text fontSize='lg' fontWeight='heavy'>
-              آپلود کردن
+              اضافه کردن 
             </Text>
           </Button>
         </Form.Item>
