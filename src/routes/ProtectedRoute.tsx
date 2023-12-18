@@ -10,7 +10,7 @@ type propsTypes = {
 
 const ProtectedRoute: React.FC<propsTypes> = ({ isPublic }) => {
   const { token }: any = useAuth();
-  return (isPublic || true) ? <Outlet /> : <Navigate to={urls.login} />
+  return (isPublic || token) ? <Outlet /> : <Navigate to={urls.login} />
 }
 
 export default ProtectedRoute;

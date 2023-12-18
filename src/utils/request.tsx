@@ -16,10 +16,10 @@ axiosInstance.interceptors.request.use(
       ...(config?.headers || {}),
     };
 
-    // const { accessToken = undefined } = getAuthStorage();
-    // if (accessToken) {
-    //   headers['Authorization'] = `Bearer ${accessToken}`;
-    // }
+    const { token = undefined }: any = localStorage.getItem('token');
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
 
     return Object.assign(config, { headers });
   },
