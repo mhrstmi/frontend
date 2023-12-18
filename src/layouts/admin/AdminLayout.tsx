@@ -26,7 +26,7 @@ const AdminLayout: React.FC = () => {
     
 
   return (
-    <Layout className={`relative min-h-screen min-w-screen overflow-hidden`}>
+    <Layout className={`relative h-screen w-screen overflow-hidden`}>
         <Header className='bg-light-green relative flex items-center justify-between px-2 md:px-9'>
             <Image
                 width={70}
