@@ -11,6 +11,10 @@ import Research from "@pages/admin/research";
 import Library from "@pages/admin/library";
 import UploadKnowledge from "../pages/admin/knowledge/uploadKnowledge";
 import UploadResearch from "../pages/admin/research/uploadResearch";
+import UploadLibrary from "../pages/admin/library/uploadLibrary";
+import EditLibrary from "../pages/admin/library/editLibrary";
+import EditResearch from "../pages/admin/research/editResearch";
+import EditKnowledge from "../pages/admin/knowledge/editKnowledge";
 
 const routes = [
    {
@@ -37,6 +41,11 @@ const routes = [
         isPublic: false,
       },
       {
+        path: urls.adminKnowledge,
+        component: <EditKnowledge />,
+        isPublic: false,
+      },
+      {
         path: urls.adminResearch,
         component: <Research />,
         isPublic: false,
@@ -47,8 +56,23 @@ const routes = [
         isPublic: false
       },
       {
+        path: urls.adminEditResearch,
+        component: <EditResearch />,
+        isPublic: false
+      },
+      {
         path: urls.adminLibrary,
         component: <Library />,
+        isPublic: false
+      },
+      {
+        path: urls.adminUploadLibrary,
+        component: <UploadLibrary />,
+        isPublic: false
+      },
+      {
+        path: urls.adminEditLibrary,
+        component: <EditLibrary />,
         isPublic: false
       },
       {

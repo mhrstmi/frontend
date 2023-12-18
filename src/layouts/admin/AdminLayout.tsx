@@ -26,7 +26,7 @@ const AdminLayout: React.FC = () => {
     
 
   return (
-    <Layout className={`relative h-screen w-screen overflow-hidden`}>
+    <Layout className={`relative min-h-screen min-w-screen overflow-hidden`}>
         <Header className='bg-light-green relative flex items-center justify-between px-2 md:px-9'>
             <Image
                 width={70}
@@ -90,8 +90,8 @@ const AdminLayout: React.FC = () => {
                     {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 </div>
             </Sider>
-            <Layout className='bg-white'>
-                <Content className="bg-light-green m-2 md:m-5 rounded-lg">
+            <Layout className='bg-white w-full p-5'>
+                <Content className="bg-light-green w-full rounded-lg ">
                     <Outlet />
                 </Content>
             </Layout>

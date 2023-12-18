@@ -3,7 +3,7 @@ import { Sections } from '@components/Header';
 import useAPI from '@hooks/useAPI';
 import Text from '@components/Text';
 import urls from '@routes/urls';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
 import { useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
@@ -16,9 +16,19 @@ const { Dragger } = Upload;
 
 
 
-const UploadResearch = () => {
+const EditResearch = () => {
+  const { id } = useParams()
   const navigate = useNavigate()
-  const postResearch = useAPI('/admin/research', 'post', {})
+  const getOneResearch = useAPI('/research/{id}', 'get', {
+    param: {
+      id: Number(id)
+    }
+  })
+  const putResearch = useAPI('/admin/research/{id}', 'put', {
+    param: {
+      id: Number(id)
+    }
+  })
   const [files, setFiles] = useState<UploadFile<any>[]>([])
 
   const [form] = Form.useForm();
@@ -26,6 +36,7 @@ const UploadResearch = () => {
   const props: UploadProps = {
     name: 'file',
     multiple: true,
+    defaultFileList: getOneResearch.data?.researchAttachment as any,
     beforeUpload: () => false,
     onChange(info) {
       setFiles(info.fileList)
@@ -37,13 +48,13 @@ const UploadResearch = () => {
 
   const onSubmit = async () => {
     try{
-      await postResearch.mutateAsync({
+      await putResearch.mutateAsync({
         "files[]": files as any,
         body: form.getFieldValue('body'),
         title: form.getFieldValue('title'),
         abstract: form.getFieldValue('abstract')
       })
-      message.success('با موفقیت آپلود شد')
+      message.success('با موفقیت ویرایش شد')
       navigate(urls.adminResearch)
     } catch(err){
       //@ts-ignore
@@ -54,11 +65,15 @@ const UploadResearch = () => {
   
   return (
     <div className="p-3 md:p-10 rounded-3xl h-full overflow-y-auto">
-      <Header title="آپلود پژوهشنامه" section={Sections.ADD} onClick={() => navigate(urls.adminResearch)} />
+      <Header title="ویراش پژوهشنامه" section={Sections.EDIT} onClick={() => navigate(urls.adminResearch)} />
       <Form
         form={form}
         layout="vertical"
-        initialValues={{ }}
+        initialValues={{
+          body: getOneResearch.data?.body,
+          title: getOneResearch.data?.title,
+          abstract: getOneResearch.data?.abstract,
+        }}
         onFinish={onSubmit}
         className='flex flex-col gap-5'
       >
@@ -111,9 +126,9 @@ const UploadResearch = () => {
           </div>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType='submit' loading={postResearch.isLoading} className='bg-dark-green flex items-center justify-center p-5'>
+          <Button type="primary" htmlType='submit' loading={putResearch.isLoading} className='bg-dark-green flex items-center justify-center p-5'>
             <Text fontSize='lg' fontWeight='heavy'>
-              آپلود کردن
+            ویراش کردن
             </Text>
           </Button>
         </Form.Item>
@@ -121,4 +136,4 @@ const UploadResearch = () => {
     </div>
   );
 };
-export default UploadResearch;
+export default EditResearch;

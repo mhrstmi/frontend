@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import urls from '@routes/urls';
 import { useAuth } from '@providers/AuthProvider';
@@ -18,15 +18,17 @@ const Login: React.FC = () => {
 
   const onFinish = async (values) => {
     try {
-      // const res = await loginRequest.mutateAsync({
-      //   userName: form.getFieldValue("userName"),
-      //   password: form.getFieldValue("password")
-      // })
+      const res = await loginRequest.mutateAsync({
+        userName: form.getFieldValue("userName"),
+        password: form.getFieldValue("password")
+      })
 
-      // setToken(res.token)
+      setToken(res.token)
+      message.success('با موفقیت وارد شدید')
       navigate(urls.adminDashboard)
     } catch(err) {
-      console.log(err)
+      //@ts-ignore
+      message.error(err)
     }
   }
 
@@ -38,8 +40,8 @@ const Login: React.FC = () => {
         onFinish={onFinish}
       >
         <section className="bg-gray-200 min-h-screen flex items-center justify-center">
-          <div className="bg-light-green flex rounded-2xl shadow-lg max-w-5xl p-5 items-center">
-            <div className="md:w-1/2 px-8 md:px-16">
+          <div className="bg-light-green flex rounded-2xl shadow-lg md:w-4/6 p-5 items-center">
+            <div className="md:w-1/2 px-4 md:px-8 lg:px-16 ">
               <div className='flex flex-col gap-2'>
                 <div className='flex items-center justify-between'>
                   <Text className="text-dark-green" fontSize='2xl' fontWeight='bold'>ورود</Text>
@@ -78,6 +80,7 @@ const Login: React.FC = () => {
                    <Button 
                      type="primary" 
                      size='large'
+                     loading={loginRequest.isLoading}
                      htmlType="submit" 
                      className="w-full bg-mid-green rounded-xl text-white py-2 hover:scale-105 duration-300"
                    >
@@ -90,13 +93,13 @@ const Login: React.FC = () => {
 
               <div className="mt-6 grid grid-cols-3 items-center text-gray-400">
                 <hr className="border-gray-400" />
-                <Text className="text-center" fontSize='sm'>ورود به داشبورد ادمین</Text>
+                <Text className="text-center" fontSize='sm'>داشبورد ادمین</Text>
                 <hr className="border-gray-400"/>
               </div>
             </div>
 
-            <div className="md:block hidden w-1/2">
-              <img className="rounded-2xl" src={Soleymani} />
+            <div className="md:block hidden w-1/2 h-full">
+              <img className="rounded-2xl h-full w-full object-cover" src={Soleymani} />
             </div>
           </div>
         </section>

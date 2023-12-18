@@ -22,11 +22,9 @@ const Header: React.FC<any> = ({ section, title, onClick }) => {
             {title}
           </Text>
           <Button onClick={onClick} className='flex items-center gap-3 md:w-fit w-full py-5 bg-mid-green'>
-            <MdOutlineAddCircle className='text-white text-lg' />
+            {section === Sections.VIEW && <MdOutlineAddCircle className='text-white text-lg' />}
             <Text fontSize='lg' fontWeight='medium' className='text-white flex'>
-              {section === Sections.ADD && 'آپلود کردن'}
-              {section === Sections.VIEW && 'افزودن'}
-              {section === Sections.EDIT && 'اعمال ویرایش'}
+              {section === Sections.VIEW ? 'افزودن' : 'بازگشت'}
             </Text>
           </Button>
         </div>

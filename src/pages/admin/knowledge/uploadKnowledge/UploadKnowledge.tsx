@@ -1,55 +1,110 @@
 import Header from '@components/Header';
 import { Sections } from '@components/Header';
-import CustomTable from '@components/CustomTable';
 import useAPI from '@hooks/useAPI';
-import { Button, Spin } from 'antd';
-import { MdDelete } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
 import Text from '@components/Text';
-import urls from '../../../../routes/urls';
+import urls from '@routes/urls';
 import { useNavigate } from 'react-router-dom';
+import { Button, Form, Input } from 'antd';
+import { useState } from 'react';
+import TextArea from 'antd/es/input/TextArea';
+import { InboxOutlined } from '@ant-design/icons';
+import type { UploadFile, UploadProps } from 'antd';
+import { message, Upload } from 'antd';
+
+const { Dragger } = Upload;
 
 
-const columns = [
-  {
-    index: 'id',
-    key: 'id',
-    title: <Text fontSize='lg' fontWeight='normal' className='line-clamp-1'>شناسه</Text>,
-  },
-  {
-    index: 'title',
-    key: 'title',
-    title: <Text fontSize='lg' fontWeight='normal' className='line-clamp-1'>عنوان</Text>,
-  },
-  {
-    index: 'body',
-    key: 'body',
-    title: <Text fontSize='lg' fontWeight='normal' className='line-clamp-1'>محتوا</Text>,
-  },
-  {
-    index: '',
-    key: '',
-    title: '',
-    render: (id) => (
-      <div className='flex flex-col gap-3'>
-        <Button className='p-3 w-fit h-fit flex items-center justify-center bg-green-600'>
-          <FaEdit className='text-white' />
-        </Button>
-        <Button className='p-3 w-fit h-fit flex items-center justify-center bg-red-500 rounded-lg'>
-          <MdDelete className='text-white' />
-        </Button>
-      </div>
-    ),
-  }
-]
+
 
 const UploadKnowledge = () => {
   const navigate = useNavigate()
   const postKnowledge = useAPI('/admin/knowledge', 'post', {})
+  const [files, setFiles] = useState<UploadFile<any>[]>([])
+
+  const [form] = Form.useForm();
+
+  const props: UploadProps = {
+    name: 'file',
+    multiple: true,
+    beforeUpload: () => false,
+    onChange(info) {
+      setFiles(info.fileList)
+    },
+    onDrop(e) {
+      console.log('Dropped files', e.dataTransfer.files);
+    },
+  };
+
+  const onSubmit = async () => {
+    try{
+      await postKnowledge.mutateAsync({
+        "files[]": files as any,
+        body: form.getFieldValue('body'),
+        title: form.getFieldValue('title')
+      })
+      message.success('با موفقیت آپلود شد')
+      navigate(urls.adminKnowledge)
+    } catch(err){
+      //@ts-ignore
+      message.error(err)
+    }
+  }
+
   
   return (
-    <div className="p-3 md:p-10 rounded-3xl h-full">
-      <Header title="دانشنامه ها" section={Sections.ADD} onClick={() => {}} />
+    <div className="p-3 md:p-10 rounded-3xl h-full overflow-y-auto">
+      <Header title="آپلود دانشنامه" section={Sections.ADD} onClick={() => navigate(urls.adminKnowledge)} />
+      <Form
+        form={form}
+        layout="vertical"
+        initialValues={{ }}
+        onFinish={onSubmit}
+        className='flex flex-col gap-5'
+      >
+        <Form.Item name="title" rules={[{ required: true, message: 'لطفا عنوان دانشنامه را وارد کنید' }]}>
+          <div className='flex flex-col gap-3'>
+            <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>عنوان دانشنامه</Text>
+            <Input 
+              className="w-full md:w-2/3 lg:w-1/3 border-mid-green rounded-lg border-1"
+              placeholder="عنوان دانشنامه" 
+            />
+          </div>
+        </Form.Item>
+        <Form.Item name="body" rules={[{ required: true, message: 'لطفا توضیحات دانشنامه را وارد کنید' }]}>
+          <div className='flex flex-col gap-3'>
+            <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>توضیحات دانشنامه</Text>
+            <TextArea
+              showCount
+              maxLength={10000}
+              rows={5}
+              className='border-mid-green border-1 rounded-lg'
+              placeholder="توضیحات دانشنامه"
+            />
+          </div>
+        </Form.Item>
+        <Form.Item>
+          <div className='flex flex-col gap-3'>
+            <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>آپلود فایل های دانشنامه</Text>
+            <Dragger {...props} className='border-mid-green border-1 rounded-lg'>
+              <p className="ant-upload-drag-icon">
+                <InboxOutlined />
+              </p>
+              <p className="ant-upload-text">
+                <Text fontSize='base' fontWeight='heavy' className='text-dark-green'>
+                 برای آپلود کلیک کنید یا فایل را به این قسمت بکشید و رها کنید
+                </Text>
+              </p>
+            </Dragger>
+          </div>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType='submit' loading={postKnowledge.isLoading} className='bg-dark-green flex items-center justify-center p-5'>
+            <Text fontSize='lg' fontWeight='heavy'>
+              آپلود کردن
+            </Text>
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 };
