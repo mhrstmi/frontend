@@ -28,7 +28,7 @@ const queryClient: QueryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename={import.meta.env.DEV ? '/' : '/frontend/'}>
+      <BrowserRouter>
         <AuthProvider>
           <Routes />
         </AuthProvider>

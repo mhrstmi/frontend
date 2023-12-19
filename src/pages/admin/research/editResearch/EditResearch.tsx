@@ -5,7 +5,7 @@ import Text from '@components/Text';
 import urls from '@routes/urls';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadFile, UploadProps } from 'antd';
@@ -19,6 +19,7 @@ const { Dragger } = Upload;
 const EditResearch = () => {
   const { id } = useParams()
   const navigate = useNavigate()
+  const [defaultValues, setDefaultValues] = useState({})
   const getOneResearch = useAPI('/research/{id}', 'get', {
     param: {
       id: Number(id)
@@ -29,14 +30,29 @@ const EditResearch = () => {
       id: Number(id)
     }
   })
-  const [files, setFiles] = useState<UploadFile<any>[]>([])
+  const [files, setFiles] = useState<any>([])
+  const [defFiles, setDefFiles] = useState<any>([])
 
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (getOneResearch.data) { 
+      setDefaultValues({
+        body: getOneResearch.data?.body,
+        title: getOneResearch.data?.title,
+        abstract: getOneResearch.data?.abstract,
+      })
+      setDefFiles(getOneResearch.data?.researchAttachment)
+      form.setFieldValue("body", getOneResearch.data?.body)
+      form.setFieldValue("title", getOneResearch.data?.title)
+      form.setFieldValue("abstract", getOneResearch.data?.abstract)
+    }
+  }, [getOneResearch.data])
 
   const props: UploadProps = {
     name: 'file',
     multiple: true,
-    defaultFileList: getOneResearch.data?.researchAttachment as any,
+    defaultFileList: defFiles,
     beforeUpload: () => false,
     onChange(info) {
       setFiles(info.fileList)
@@ -69,11 +85,7 @@ const EditResearch = () => {
       <Form
         form={form}
         layout="vertical"
-        initialValues={{
-          body: getOneResearch.data?.body,
-          title: getOneResearch.data?.title,
-          abstract: getOneResearch.data?.abstract,
-        }}
+        initialValues={defaultValues}
         onFinish={onSubmit}
         className='flex flex-col gap-5'
       >
@@ -82,6 +94,7 @@ const EditResearch = () => {
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>عنوان پژوهشنامه</Text>
             <Input 
               className="w-full md:w-2/3 lg:w-1/3 border-mid-green rounded-lg border-1"
+              value={form.getFieldValue("title")}
               placeholder="عنوان پژوهشنامه" 
             />
           </div>
@@ -91,6 +104,7 @@ const EditResearch = () => {
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>توضیحات پژوهشنامه</Text>
             <TextArea
               showCount
+              value={form.getFieldValue("body")}
               maxLength={10000}
               rows={5}
               className='border-mid-green border-1 rounded-lg'
@@ -104,6 +118,7 @@ const EditResearch = () => {
             <TextArea
               showCount
               maxLength={10000}
+              value={form.getFieldValue("abstract")}
               rows={5}
               className='border-mid-green border-1 rounded-lg'
               placeholder="خلاصه پژوهشنامه"

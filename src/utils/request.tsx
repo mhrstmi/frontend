@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 // import { getAuthStorage, setAuthStorage } from '@containers/auth';
 
+
 const axiosInstance: AxiosInstance = axios.create({
   timeout: 150000,
   baseURL: import.meta.env['REACT_APP_API_URL'],
@@ -16,7 +17,7 @@ axiosInstance.interceptors.request.use(
       ...(config?.headers || {}),
     };
 
-    const { token = undefined }: any = localStorage.getItem('token');
+    const token: any = localStorage.getItem('token');
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -43,6 +44,6 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-const request = (config: AxiosRequestConfig) => axiosInstance.request(config);
+const request = (config: AxiosRequestConfig) => axiosInstance.request(config)
 
 export default request;

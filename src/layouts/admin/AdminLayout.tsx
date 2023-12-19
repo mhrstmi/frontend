@@ -90,8 +90,8 @@ const AdminLayout: React.FC = () => {
                     {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 </div>
             </Sider>
-            <Layout className='bg-white w-full p-5'>
-                <Content className="bg-light-green w-full rounded-lg ">
+            <Layout className='bg-white w-full h-full p-5'>
+                <Content className="bg-light-green w-full rounded-lg">
                     <Outlet />
                 </Content>
             </Layout>

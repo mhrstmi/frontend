@@ -11,21 +11,24 @@ import { useNavigate } from 'react-router-dom';
 
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Modal } from 'antd';
+import { useState } from 'react';
 
 const { confirm, } = Modal;
 
 
 const Research = () => {
+  const [itemId, setItemId] = useState(0);
   const navigate = useNavigate()
   const getResearch = useAPI('/research/list', 'get', {})
+  const deleteResearch = useAPI('/admin/research/{id}', 'delete', {
+    param: {
+      id: itemId
+    }
+  })
+
 
   const showDeleteConfirm = (id) => {
-    const deleteResearch = useAPI('/admin/research/{id}', 'delete', {
-      param: {
-        id: id
-      }
-    })
-
+    setItemId(id)
     confirm({
       title: 'میخواهید این مورد را حذف کنید؟',
       icon: <ExclamationCircleFilled />,
@@ -35,14 +38,20 @@ const Research = () => {
       okButtonProps: {
         loading: deleteResearch.isLoading
       },
+
+      onCancel() {
+        setItemId(0)
+      },
       async onOk() {
         try {
           await deleteResearch.mutateAsync({})
+          getResearch.refetch()
           message.success('مورد یا موفقیت حذف شد')
         }catch(err){
           //@ts-ignore
           message.error(err)
         }
+        setItemId(0)
       },
     });
   };
@@ -70,7 +79,7 @@ const Research = () => {
       index: 'abstract',
       key: 'abstract',
       title: 'خلاصه',
-      render: (abstract) => <Text fontSize='base' fontWeight='medium' className='line-clamp-1 max-w-[200px] text-dark-green'>{abstract}</Text>
+      render: (abstract) => <Text fontSize='base' fontWeight='medium' className='line-clamp-3 max-w-[400px] text-dark-green'>{abstract}</Text>
     },
     {
       index: '',
@@ -90,7 +99,7 @@ const Research = () => {
   ]
 
   return (
-    <div className="p-3 md:p-10 rounded-3xl h-full w-full">
+    <div className="p-3 md:p-10 rounded-3xl h-full w-full overflow-auto">
       <Header section={Sections.VIEW} title="پژوهشنامه ها" onClick={() => navigate(urls.adminUploadResearch)} />
       <Spin spinning={getResearch.isLoading || getResearch.isRefetching}>
         <CustomTable 

@@ -15,7 +15,6 @@ export default defineConfig({
       'xmlhttprequest-ssl': './node_modules/engine.io-client/lib/xmlhttprequest.js',
     },
   },
-  base: "/frontend/",
   plugins: [
     react(), 
     tsconfigPaths(),
@@ -33,12 +32,18 @@ export default defineConfig({
   envPrefix: 'REACT_APP_',
   server: {
     open: true,
-    port: 3000,
+    port: 7080,
   },
   preview: {
     port: 5000,
   },
   build: {
-    target: 'esnext' //browsers can handle the latest ES features
-  }
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        intro: 'if(exports === undefined){var exports ={}; var self = {}}',
+      },
+    },
+    target: ['esnext'],
+  },
 })

@@ -5,7 +5,7 @@ import Text from '@components/Text';
 import urls from '@routes/urls';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadFile, UploadProps } from 'antd';
@@ -18,6 +18,7 @@ const { Dragger } = Upload;
 
 const EditKnowledge = () => {
   const { id } = useParams()
+  const [defaultValues, setDefaultValues] = useState({})
   const navigate = useNavigate()
   const getOneKnowledge = useAPI('/knowledge/{id}', 'get', {
     param: {
@@ -29,14 +30,27 @@ const EditKnowledge = () => {
       id: Number(id)
     }
   })
-  const [files, setFiles] = useState<UploadFile<any>[]>([])
+  const [files, setFiles] = useState<any>([])
+  const [defFiles, setDefFiles] = useState<any>([])
 
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (getOneKnowledge.data) { 
+      setDefaultValues({
+        body: getOneKnowledge.data?.body,
+        title: getOneKnowledge.data?.title,
+      })
+      setDefFiles(getOneKnowledge.data?.knowledgeAttachment)
+      form.setFieldValue("body", getOneKnowledge.data?.body)
+      form.setFieldValue("title", getOneKnowledge.data?.title)
+    }
+  }, [getOneKnowledge.data])
 
   const props: UploadProps = {
     name: 'file',
     multiple: true,
-    defaultFileList: getOneKnowledge.data?.knowledgeAttachment as any,
+    defaultFileList: defFiles,
     beforeUpload: () => false,
     onChange(info) {
       setFiles(info.fileList)
@@ -68,10 +82,7 @@ const EditKnowledge = () => {
       <Form
         form={form}
         layout="vertical"
-        initialValues={{
-          body: getOneKnowledge.data?.body,
-          title: getOneKnowledge.data?.title,
-        }}
+        initialValues={defaultValues}
         onFinish={onSubmit}
         className='flex flex-col gap-5'
       >
@@ -80,6 +91,7 @@ const EditKnowledge = () => {
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>عنوان دانشنامه</Text>
             <Input 
               className="w-full md:w-2/3 lg:w-1/3 border-mid-green rounded-lg border-1"
+              value={form.getFieldValue("title")}
               placeholder="عنوان دانشنامه" 
             />
           </div>
@@ -91,6 +103,7 @@ const EditKnowledge = () => {
               showCount
               maxLength={10000}
               rows={5}
+              value={form.getFieldValue("body")}
               className='border-mid-green border-1 rounded-lg'
               placeholder="توضیحات دانشنامه"
             />

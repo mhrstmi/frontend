@@ -41,7 +41,7 @@ const routes = [
         isPublic: false,
       },
       {
-        path: urls.adminKnowledge,
+        path: urls.adminEditKnowledge,
         component: <EditKnowledge />,
         isPublic: false,
       },

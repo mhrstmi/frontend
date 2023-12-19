@@ -11,7 +11,7 @@ const LibraryTab = () => {
   return (
     <Spin spinning={getLibrary.isLoading || getLibrary.isRefetching}>
       <div className='md:p-10 p-3 bg-white w-full flex flex-col gap-3 rounded-lg max-h-[500px] overflow-y-auto h-full'>
-          {getLibrary.data ? getLibrary.data?.map(item => (
+          {getLibrary.data && getLibrary.data.length ? getLibrary.data?.map(item => (
             <Item 
               data={{
                 comment: item.comment,

@@ -5,7 +5,7 @@ import Text from '@components/Text';
 import urls from '@routes/urls';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadFile, UploadProps } from 'antd';
@@ -19,6 +19,7 @@ const { Dragger } = Upload;
 const EditLibrary = () => {
   const { id } = useParams()
   const navigate = useNavigate()
+  const [defaultValues, setDefaultValues] = useState({})
   const getOneLibarary = useAPI('/{id}', 'get', {
     param: {
       id: Number(id)
@@ -29,14 +30,27 @@ const EditLibrary = () => {
       id: Number(id)
     }
   })
-  const [files, setFiles] = useState<UploadFile<any>[]>([])
+  const [files, setFiles] = useState<any>([])
+  const [defFiles, setDefFiles] = useState<any>([])
 
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (getOneLibarary.data) { 
+      setDefaultValues({
+        comment: getOneLibarary.data?.comment,
+        title: getOneLibarary.data?.title,
+      })
+      setDefFiles(getOneLibarary.data?.libraryAttachment)
+      form.setFieldValue("comment", getOneLibarary.data?.comment)
+      form.setFieldValue("title", getOneLibarary.data?.title)
+    }
+  }, [getOneLibarary.data])
 
   const props: UploadProps = {
     name: 'file',
     multiple: true,
-    defaultFileList: getOneLibarary.data?.libraryAttachment as any,
+    defaultFileList: defFiles,
     beforeUpload: () => false,
     onChange(info) {
       setFiles(info.fileList)
@@ -68,10 +82,7 @@ const EditLibrary = () => {
       <Form
         form={form}
         layout="vertical"
-        initialValues={{
-          comment: getOneLibarary.data?.comment,
-          title: getOneLibarary.data?.title,
-        }}
+        initialValues={defaultValues}
         onFinish={onSubmit}
         className='flex flex-col gap-5'
       >
@@ -80,6 +91,7 @@ const EditLibrary = () => {
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>عنوان</Text>
             <Input 
               className="w-full md:w-2/3 lg:w-1/3 border-mid-green rounded-lg border-1"
+              value={form.getFieldValue("title")}
               placeholder="عنوان" 
             />
           </div>
@@ -89,6 +101,7 @@ const EditLibrary = () => {
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>یادداشت</Text>
             <TextArea
               showCount
+              value={form.getFieldValue("comment")}
               maxLength={10000}
               rows={5}
               className='border-mid-green border-1 rounded-lg'

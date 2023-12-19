@@ -11,7 +11,7 @@ const KnowledgeTab = () => {
   return (
     <Spin spinning={getKnowledge.isLoading || getKnowledge.isRefetching}>
       <div className='md:p-10 p-3 bg-white w-full flex flex-col gap-3 rounded-lg max-h-[500px] overflow-y-auto h-full'>
-          {getKnowledge.data ? getKnowledge.data?.map(item => (
+          {getKnowledge.data && getKnowledge.data.length ? getKnowledge.data?.map(item => (
             <Item 
               data={{
                 body: item.body,

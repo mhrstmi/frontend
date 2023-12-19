@@ -10,22 +10,24 @@ import { useNavigate } from 'react-router-dom';
 import useAPI from '@hooks/useAPI';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Modal } from 'antd';
+import { useState } from 'react';
 
 const { confirm, } = Modal;
 
 
 const Library = () => {
+  const [itemId, setItemId] = useState(0);
   const getLibrary = useAPI('/list', 'get', {})
+  const deleteLibrary = useAPI('/library/{id}', 'delete', {
+    param: {
+      id: itemId
+    }
+  })
 
   const navigate = useNavigate()
 
   const showDeleteConfirm = (id) => {
-    const deleteLibrary = useAPI('/library/{id}', 'delete', {
-      param: {
-        id: id
-      }
-    })
-
+    setItemId(id)
     confirm({
       title: 'میخواهید این مورد را حذف کنید؟',
       icon: <ExclamationCircleFilled />,
@@ -35,14 +37,20 @@ const Library = () => {
       okButtonProps: {
         loading: deleteLibrary.isLoading
       },
+
+      onCancel() {
+        setItemId(0)
+      },
       async onOk() {
         try {
           await deleteLibrary.mutateAsync({})
+          getLibrary.refetch()
           message.success('مورد یا موفقیت حذف شد')
         }catch(err){
           //@ts-ignore
           message.error(err)
         }
+        setItemId(0)
       },
     });
   };
@@ -64,7 +72,7 @@ const Library = () => {
       index: 'comment',
       key: 'comment',
       title:'یاداشت',
-      render: (comment) => <Text fontSize='base' fontWeight='medium' className='line-clamp-1 max-w-[200px] text-dark-green'>{comment}</Text>
+      render: (comment) => <Text fontSize='base' fontWeight='medium' className='line-clamp-3 max-w-[400px] text-dark-green'>{comment}</Text>
     },
     {
       index: '',
@@ -84,7 +92,7 @@ const Library = () => {
   ]
   
   return (
-    <div className="p-3 md:p-10 rounded-3xl h-full">
+    <div className="p-3 md:p-10 rounded-3xl h-full overflow-auto">
       <Header title="کتابخانه" section={Sections.VIEW} onClick={() => navigate(urls.adminUploadLibrary)} />
       <Spin spinning={getLibrary.isLoading || getLibrary.isRefetching}>
         <CustomTable 
