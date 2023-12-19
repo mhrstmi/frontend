@@ -4,7 +4,7 @@ import {
   MenuUnfoldOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, Image } from 'antd';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import urls from '@routes/urls';
 import { RxDashboard } from 'react-icons/rx';
 import { GiArchiveResearch, GiBookshelf, GiNotebook } from 'react-icons/gi';
@@ -23,6 +23,8 @@ const AdminLayout: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
     const { setToken }: any = useAuth()
     const navigate = useNavigate()
+    const location = useLocation();
+
     
 
   return (
@@ -45,33 +47,34 @@ const AdminLayout: React.FC = () => {
                     className="bg-light-green h-full"
                     mode="inline"
                     defaultSelectedKeys={['1']}
+                    selectedKeys={['/' + location.pathname.split('/').slice(1,3).join('/')]}
                     items={[
                         {
-                            key: '1',
+                            key: urls.adminDashboard,
                             icon: <RxDashboard />,
                             label: <Text>داشبورد</Text>,
-                            onClick: () => navigate(urls.adminDashboard)
+                            onClick: () => navigate(urls.adminDashboard),
                         },
                         {
-                            key: '2',
-                            icon: <GiNotebook />,
-                            label: <Text>دانشنامه</Text>,
-                            onClick: () => navigate(urls.adminKnowledge)
-                        },
-                        {
-                            key: '3',
+                            key: urls.adminResearch,
                             icon: <GiArchiveResearch />,
                             label: <Text>پژوهشنامه</Text>,
                             onClick: () => navigate(urls.adminResearch)
                         },
                         {
-                            key: '4',
+                            key: urls.adminKnowledge,
+                            icon: <GiNotebook />,
+                            label: <Text>دانشنامه</Text>,
+                            onClick: () => navigate(urls.adminKnowledge)
+                        },
+                        {
+                            key: urls.adminLibrary,
                             icon: <GiBookshelf />,
                             label: <Text>کتابخانه</Text>,
                             onClick: () => navigate(urls.adminLibrary)
                         },
                         {
-                            key: '5',
+                            key: urls.adminLibrary,
                             icon: <IoCalendarOutline />,
                             label: <Text>تقویم مقاومت</Text>,
                             onClick: () => navigate(urls.adminLibrary)

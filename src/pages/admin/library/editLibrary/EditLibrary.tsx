@@ -20,6 +20,7 @@ const EditLibrary = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const [defaultValues, setDefaultValues] = useState({})
+  const getLibrary = useAPI('/list', 'get', {})
   const getOneLibarary = useAPI('/{id}', 'get', {
     param: {
       id: Number(id)
@@ -31,7 +32,6 @@ const EditLibrary = () => {
     }
   })
   const [files, setFiles] = useState<any>([])
-  const [defFiles, setDefFiles] = useState<any>([])
 
   const [form] = Form.useForm();
 
@@ -41,7 +41,7 @@ const EditLibrary = () => {
         comment: getOneLibarary.data?.comment,
         title: getOneLibarary.data?.title,
       })
-      setDefFiles(getOneLibarary.data?.libraryAttachment)
+      setFiles(getOneLibarary.data?.libraryAttachment)
       form.setFieldValue("comment", getOneLibarary.data?.comment)
       form.setFieldValue("title", getOneLibarary.data?.title)
     }
@@ -50,7 +50,7 @@ const EditLibrary = () => {
   const props: UploadProps = {
     name: 'file',
     multiple: true,
-    defaultFileList: defFiles,
+    fileList: files as UploadFile[],
     beforeUpload: () => false,
     onChange(info) {
       setFiles(info.fileList)
@@ -68,6 +68,7 @@ const EditLibrary = () => {
         title: form.getFieldValue('title'),
       })
       message.success('با موفقیت ویرایش شد')
+      getLibrary.refetch()
       navigate(urls.adminLibrary)
     } catch(err){
       //@ts-ignore
@@ -86,44 +87,44 @@ const EditLibrary = () => {
         onFinish={onSubmit}
         className='flex flex-col gap-5'
       >
-        <Form.Item name="title" rules={[{ required: true, message: 'لطفا عنوان را وارد کنید' }]}>
-          <div className='flex flex-col gap-3'>
+        <div className='flex flex-col gap-3'>
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>عنوان</Text>
-            <Input 
-              className="w-full md:w-2/3 lg:w-1/3 border-mid-green rounded-lg border-1"
-              value={form.getFieldValue("title")}
-              placeholder="عنوان" 
-            />
-          </div>
-        </Form.Item>
-        <Form.Item name="comment" rules={[{ required: true, message: 'لطفا یادداشت را وارد کنید' }]}>
-          <div className='flex flex-col gap-3'>
+            <Form.Item name="title" rules={[{ required: true, message: 'لطفا عنوان را وارد کنید' }]}>
+                <Input 
+                  className="w-full md:w-2/3 lg:w-1/3 border-mid-green rounded-lg border-1"
+                  value={form.getFieldValue("title")}
+                  placeholder="عنوان" 
+                />
+            </Form.Item>
+        </div>
+        <div className='flex flex-col gap-3'>
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>یادداشت</Text>
-            <TextArea
-              showCount
-              value={form.getFieldValue("comment")}
-              maxLength={10000}
-              rows={5}
-              className='border-mid-green border-1 rounded-lg'
-              placeholder="یادداشت"
-            />
-          </div>
-        </Form.Item>
-        <Form.Item>
-          <div className='flex flex-col gap-3'>
+            <Form.Item name="comment" rules={[{ required: true, message: 'لطفا یادداشت را وارد کنید' }]}>
+                <TextArea
+                  showCount
+                  value={form.getFieldValue("comment")}
+                  maxLength={10000}
+                  rows={5}
+                  className='border-mid-green border-1 rounded-lg'
+                  placeholder="یادداشت"
+                />
+            </Form.Item>
+        </div>
+        <div className='flex flex-col gap-3'>
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>اضافه کردن فایل های پژوهشنامه</Text>
-            <Dragger {...props} className='border-mid-green border-1 rounded-lg'>
-              <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-              </p>
-              <p className="ant-upload-text">
-                <Text fontSize='base' fontWeight='heavy' className='text-dark-green'>
-                 برای اضافه کردن کلیک کنید یا فایل را به این قسمت بکشید و رها کنید
-                </Text>
-              </p>
-            </Dragger>
-          </div>
-        </Form.Item>
+          <Form.Item>
+              <Dragger {...props}>
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">
+                  <Text fontSize='base' fontWeight='heavy' className='text-dark-green'>
+                  برای اضافه کردن کلیک کنید یا فایل را به این قسمت بکشید و رها کنید
+                  </Text>
+                </p>
+              </Dragger>
+          </Form.Item>
+        </div>
         <Form.Item>
           <Button type="primary" htmlType='submit' loading={putLibarary.isLoading} className='bg-dark-green flex items-center justify-center p-5'>
             <Text fontSize='lg' fontWeight='heavy'>

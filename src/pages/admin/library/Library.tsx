@@ -45,7 +45,7 @@ const Library = () => {
         try {
           await deleteLibrary.mutateAsync({})
           getLibrary.refetch()
-          message.success('مورد یا موفقیت حذف شد')
+          message.success('مورد با موفقیت حذف شد')
         }catch(err){
           //@ts-ignore
           message.error(err)

@@ -46,7 +46,7 @@ const Knowledge = () => {
         try {
           await deleteKnowledge.mutateAsync({})
           getKnowledge.refetch()
-          message.success('مورد یا موفقیت حذف شد')
+          message.success('مورد با موفقیت حذف شد')
         }catch(err){
           //@ts-ignore
           message.error(err)

@@ -46,7 +46,7 @@ const Research = () => {
         try {
           await deleteResearch.mutateAsync({})
           getResearch.refetch()
-          message.success('مورد یا موفقیت حذف شد')
+          message.success('مورد با موفقیت حذف شد')
         }catch(err){
           //@ts-ignore
           message.error(err)

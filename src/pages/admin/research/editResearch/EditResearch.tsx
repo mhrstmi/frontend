@@ -20,6 +20,7 @@ const EditResearch = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const [defaultValues, setDefaultValues] = useState({})
+  const getResearch = useAPI('/research/list', 'get', {})
   const getOneResearch = useAPI('/research/{id}', 'get', {
     param: {
       id: Number(id)
@@ -31,7 +32,6 @@ const EditResearch = () => {
     }
   })
   const [files, setFiles] = useState<any>([])
-  const [defFiles, setDefFiles] = useState<any>([])
 
   const [form] = Form.useForm();
 
@@ -42,7 +42,7 @@ const EditResearch = () => {
         title: getOneResearch.data?.title,
         abstract: getOneResearch.data?.abstract,
       })
-      setDefFiles(getOneResearch.data?.researchAttachment)
+      setFiles(getOneResearch.data?.researchAttachment)
       form.setFieldValue("body", getOneResearch.data?.body)
       form.setFieldValue("title", getOneResearch.data?.title)
       form.setFieldValue("abstract", getOneResearch.data?.abstract)
@@ -52,7 +52,7 @@ const EditResearch = () => {
   const props: UploadProps = {
     name: 'file',
     multiple: true,
-    defaultFileList: defFiles,
+    fileList: files as UploadFile[],
     beforeUpload: () => false,
     onChange(info) {
       setFiles(info.fileList)
@@ -71,6 +71,7 @@ const EditResearch = () => {
         abstract: form.getFieldValue('abstract')
       })
       message.success('با موفقیت ویرایش شد')
+      getResearch.refetch()
       navigate(urls.adminResearch)
     } catch(err){
       //@ts-ignore
@@ -89,57 +90,57 @@ const EditResearch = () => {
         onFinish={onSubmit}
         className='flex flex-col gap-5'
       >
-        <Form.Item name="title" rules={[{ required: true, message: 'لطفا عنوان پژوهشنامه را وارد کنید' }]}>
-          <div className='flex flex-col gap-3'>
+        <div className='flex flex-col gap-3'>
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>عنوان پژوهشنامه</Text>
-            <Input 
-              className="w-full md:w-2/3 lg:w-1/3 border-mid-green rounded-lg border-1"
-              value={form.getFieldValue("title")}
-              placeholder="عنوان پژوهشنامه" 
-            />
-          </div>
-        </Form.Item>
-        <Form.Item name="body" rules={[{ required: true, message: 'لطفا توضیحات پژوهشنامه را وارد کنید' }]}>
-          <div className='flex flex-col gap-3'>
+          <Form.Item name="title" rules={[{ required: true, message: 'لطفا عنوان پژوهشنامه را وارد کنید' }]}>
+              <Input 
+                className="w-full md:w-2/3 lg:w-1/3 border-mid-green rounded-lg border-1"
+                value={form.getFieldValue("title")}
+                placeholder="عنوان پژوهشنامه" 
+              />
+          </Form.Item>
+        </div>
+        <div className='flex flex-col gap-3'>
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>توضیحات پژوهشنامه</Text>
-            <TextArea
-              showCount
-              value={form.getFieldValue("body")}
-              maxLength={10000}
-              rows={5}
-              className='border-mid-green border-1 rounded-lg'
-              placeholder="توضیحات پژوهشنامه"
-            />
-          </div>
-        </Form.Item>
-        <Form.Item name="abstract" rules={[{ required: true, message: 'لطفا خلاصه پژوهشنامه را وارد کنید' }]}>
-          <div className='flex flex-col gap-3'>
+            <Form.Item name="body" rules={[{ required: true, message: 'لطفا توضیحات پژوهشنامه را وارد کنید' }]}>
+                <TextArea
+                  showCount
+                  value={form.getFieldValue("body")}
+                  maxLength={10000}
+                  rows={5}
+                  className='border-mid-green border-1 rounded-lg'
+                  placeholder="توضیحات پژوهشنامه"
+                />
+            </Form.Item>
+        </div>
+        <div className='flex flex-col gap-3'>
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>خلاصه پژوهشنامه</Text>
-            <TextArea
-              showCount
-              maxLength={10000}
-              value={form.getFieldValue("abstract")}
-              rows={5}
-              className='border-mid-green border-1 rounded-lg'
-              placeholder="خلاصه پژوهشنامه"
-            />
-          </div>
-        </Form.Item>
-        <Form.Item>
-          <div className='flex flex-col gap-3'>
+            <Form.Item name="abstract" rules={[{ required: true, message: 'لطفا خلاصه پژوهشنامه را وارد کنید' }]}>
+                <TextArea
+                  showCount
+                  maxLength={10000}
+                  value={form.getFieldValue("abstract")}
+                  rows={5}
+                  className='border-mid-green border-1 rounded-lg'
+                  placeholder="خلاصه پژوهشنامه"
+                />
+            </Form.Item>
+        </div>
+        <div className='flex flex-col gap-3'>
             <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>اضافه کردن فایل های پژوهشنامه</Text>
-            <Dragger {...props} className='border-mid-green border-1 rounded-lg'>
-              <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-              </p>
-              <p className="ant-upload-text">
-                <Text fontSize='base' fontWeight='heavy' className='text-dark-green'>
-                 برای اضافه کردن کلیک کنید یا فایل را به این قسمت بکشید و رها کنید
-                </Text>
-              </p>
-            </Dragger>
-          </div>
-        </Form.Item>
+            <Form.Item>
+                <Dragger {...props}>
+                  <p className="ant-upload-drag-icon">
+                    <InboxOutlined />
+                  </p>
+                  <p className="ant-upload-text">
+                    <Text fontSize='base' fontWeight='heavy' className='text-dark-green'>
+                    برای اضافه کردن کلیک کنید یا فایل را به این قسمت بکشید و رها کنید
+                    </Text>
+                  </p>
+                </Dragger>
+            </Form.Item>
+        </div>
         <Form.Item>
           <Button type="primary" htmlType='submit' loading={putResearch.isLoading} className='bg-dark-green flex items-center justify-center p-5'>
             <Text fontSize='lg' fontWeight='heavy'>

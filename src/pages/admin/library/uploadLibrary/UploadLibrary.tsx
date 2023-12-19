@@ -22,6 +22,7 @@ const UploadLibrary = () => {
   const [files, setFiles] = useState<UploadFile<any>[]>([])
 
   const [form] = Form.useForm();
+  const getLibrary = useAPI('/list', 'get', {})
 
   const props: UploadProps = {
     name: 'file',
@@ -43,6 +44,7 @@ const UploadLibrary = () => {
         title: form.getFieldValue('title')
       })
       message.success('با موفقیت اضافه شد')
+      getLibrary.refetch()
       navigate(urls.adminLibrary)
     } catch(err){
       //@ts-ignore

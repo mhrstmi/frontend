@@ -19,6 +19,7 @@ const { Dragger } = Upload;
 const UploadResearch = () => {
   const navigate = useNavigate()
   const postResearch = useAPI('/admin/research', 'post', {})
+  const getResearch = useAPI('/research/list', 'get', {})
   const [files, setFiles] = useState<UploadFile<any>[]>([])
 
   const [form] = Form.useForm();
@@ -44,6 +45,7 @@ const UploadResearch = () => {
         abstract: form.getFieldValue('abstract')
       })
       message.success('با موفقیت اضافه شد')
+      getResearch.refetch()
       navigate(urls.adminResearch)
     } catch(err){
       //@ts-ignore

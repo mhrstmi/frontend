@@ -19,6 +19,7 @@ const { Dragger } = Upload;
 const UploadKnowledge = () => {
   const navigate = useNavigate()
   const postKnowledge = useAPI('/admin/knowledge', 'post', {})
+  const getKnowledge = useAPI('/knowledge/list', 'get', {})
   const [files, setFiles] = useState<UploadFile<any>[]>([])
 
   const [form] = Form.useForm();
@@ -43,6 +44,7 @@ const UploadKnowledge = () => {
         title: form.getFieldValue('title')
       })
       message.success('با موفقیت اضافه شد')
+      getKnowledge.refetch()
       navigate(urls.adminKnowledge)
     } catch(err){
       //@ts-ignore

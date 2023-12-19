@@ -14,12 +14,12 @@ const Dashboard = () => {
   const getLibrary = useAPI('/list', 'get', {})
 
   return (
-    <div className="p-3 md:p-10 rounded-3xl h-full overflow-hidden">
+    <div className="p-3 md:p-10 rounded-3xl h-full overflow-auto">
       <div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
         <div className='rounded-lg bg-white w-full flex flex-col items-center justify-center gap-5 p-5'>
           <Text fontSize='4xl' fontWeight='black' className='text-dark-green'>{getResearch.data ? getResearch.data.length : 0}</Text>
           <Divider className="m-0" />
-          <div className='flex gap-5'>
+          <div className='w-full flex flex-col lg:flex-row gap-5'>
             <Button onClick={() => navigate(urls.adminResearch)} className="bg-mid-green w-full">
               <Text fontSize='base' fontWeight='heavy' className='text-white'>پژوهشنامه ها</Text>
             </Button>
@@ -31,7 +31,7 @@ const Dashboard = () => {
         <div className='rounded-lg bg-white w-full flex flex-col items-center justify-center gap-5 p-5'>
           <Text fontSize='4xl' fontWeight='black' className='text-dark-green'>{getKnowledge.data ? getKnowledge.data.length : 0}</Text>
           <Divider className="m-0" />
-          <div className='flex gap-5'>
+          <div className='w-full flex flex-col lg:flex-row gap-5'>
             <Button onClick={() => navigate(urls.adminKnowledge)} className="bg-mid-green w-full">
               <Text fontSize='base' fontWeight='heavy' className='text-white'>دانشنامه ها</Text>
             </Button>
@@ -43,7 +43,7 @@ const Dashboard = () => {
         <div className='rounded-lg bg-white w-full flex flex-col items-center justify-center gap-5 p-5'>
           <Text fontSize='4xl' fontWeight='black' className='text-dark-green'>{getLibrary.data ? getLibrary.data.length : 0}</Text>
           <Divider className="m-0" />
-          <div className='flex gap-5'>
+          <div className='w-full flex flex-col lg:flex-row gap-5'>
             <Button onClick={() => navigate(urls.adminLibrary)} className="bg-mid-green w-full">
               <Text fontSize='base' fontWeight='heavy' className='text-white'>کتابخانه</Text>
             </Button>
