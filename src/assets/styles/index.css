@@ -1,4 +1,3 @@
-@import url(https://db.onlinewebfonts.com/c/002254488ce1877d55ad3693e527ad1e?family=IRANSansWeb);
 
 @tailwind base;
 @tailwind components;
@@ -8,7 +7,7 @@
 body {
     margin: 0;
     padding:0;
-    font-family: IRANSansWeb !important;
+    font-family: Vazirmatn, sans-serif;
 }
 
 ::-webkit-scrollbar {

@@ -6,7 +6,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      main: ["IRANSansWeb"]
+      main: ["Vazirmatn", "sans-serif"]
     },
     extend: {
       colors: {

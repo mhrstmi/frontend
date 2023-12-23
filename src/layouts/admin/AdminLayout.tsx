@@ -13,6 +13,10 @@ import { IoCalendarOutline } from 'react-icons/io5';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import SoldierCloth from '@assets/images/soldier-cloth.png'
 import { useAuth } from '../../providers/AuthProvider';
+import { LuSchool } from "react-icons/lu";
+import Logo from '@assets/images/logo.png'
+
+
 
 
 
@@ -30,13 +34,9 @@ const AdminLayout: React.FC = () => {
   return (
     <Layout className={`relative h-screen w-screen overflow-hidden`}>
         <Header className='bg-light-green relative flex items-center justify-between px-2 md:px-9'>
-            <Image
-                width={70}
-                height={35}
-                preview={false}
-                className='rounded-lg w-full h-full'
-                src={SoldierCloth}
-            />
+            <div className='max-h-10'>
+                <img className='object-fill max-h-12' src={Logo} />
+            </div>
             <Button className='bg-red-500 flex items-center justify-center' onClick={() => { setToken(undefined); navigate(urls.login)}}>
                 <Text fontSize='base' fontWeight='normal' className='text-white'>خروج</Text>
             </Button>
@@ -74,9 +74,15 @@ const AdminLayout: React.FC = () => {
                             onClick: () => navigate(urls.adminLibrary)
                         },
                         {
-                            key: urls.adminLibrary,
+                            key: urls.adminCalendar,
                             icon: <IoCalendarOutline />,
                             label: <Text>تقویم مقاومت</Text>,
+                            onClick: () => navigate(urls.adminLibrary)
+                        },
+                        {
+                            key: urls.adminSchool,
+                            icon: <LuSchool />,
+                            label: <Text>مدرسه مقاومت</Text>,
                             onClick: () => navigate(urls.adminLibrary)
                         },
                     ]}

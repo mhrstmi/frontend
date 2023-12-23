@@ -3,6 +3,7 @@ import Item from '../../../components/Item'
 import useAPI from '../../../hooks/useAPI'
 import { Spin } from 'antd'
 import { Text } from '../../../components'
+import { HomeTabs } from '../Home'
 
 const LibraryTab = () => {
   const getLibrary = useAPI('/list', 'get', {})
@@ -10,15 +11,16 @@ const LibraryTab = () => {
 
   return (
     <Spin spinning={getLibrary.isLoading || getLibrary.isRefetching}>
-      <div className='md:p-10 p-3 bg-white w-full flex flex-col gap-3 rounded-lg max-h-[500px] overflow-y-auto h-full'>
+      <div className={`md:p-10 p-3 ${getLibrary.data && getLibrary.data.length ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5' : null } bg-white w-full rounded-lg h-full`}>
           {getLibrary.data && getLibrary.data.length ? getLibrary.data?.map(item => (
-            <Item 
-              data={{
-                comment: item.comment,
-                title: item.title,
-                id: item.id,
-              }} 
-            />
+              <Item   
+                tab={HomeTabs.LIBRARY}
+                data={{
+                  comment: item.comment,
+                  title: item.title,
+                  id: item.id,
+                }} 
+              />
           )): 
           <div className='flex items-center justify-center h-full w-full'>
             <Text fontSize='base' fontWeight='heavy' className='text-mid-green'>مطلبی برای نمایش وجود ندارد</Text> 

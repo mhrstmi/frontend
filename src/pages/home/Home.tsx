@@ -10,6 +10,11 @@ import ResearchTab from './components/ResearchTab';
 import KnowledgeTab from './components/KnowledgeTab';
 import LibraryTab from './components/LibraryTab';
 
+export enum HomeTabs {
+  RESEARCH = "Research",
+  LIBRARY = "Library",
+  KNOWLEDGE = "Knowledge",
+}
 
 const Home = () => {
   const navigate = useNavigate()
@@ -38,7 +43,7 @@ const Home = () => {
       children: <></>,
     },
     {
-      label: <Text fontSize='base' fontWeight='heavy' className='text-dark-green'>تقویم مدرسه</Text>,
+      label: <Text fontSize='base' fontWeight='heavy' className='text-dark-green'>مدرسه مقاومت</Text>,
       key: '5',
       children: <></>,
     },
