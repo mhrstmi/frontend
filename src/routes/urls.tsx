@@ -14,6 +14,8 @@ const urls = {
     adminUploadLibrary: '/admin/library/upload',
     adminEditLibrary: '/admin/library/edit/:id',
     adminCalendar: '/admin/calendar',
+    adminSchool: '/admin/school',
+
 
     // auth
     login: '/account/login'
