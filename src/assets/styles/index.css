@@ -1,7 +1,7 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 
 body {
@@ -20,6 +20,8 @@ body {
 ::-webkit-scrollbar-track {
     background-color: transparent;
 }
+
+
 
 
 

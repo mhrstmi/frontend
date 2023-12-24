@@ -3,18 +3,22 @@ import { renderRoutes } from "./GenerateRoutes";
 import AdminLayout from "@layouts/admin/AdminLayout";
 import Dashboard from "@pages/admin/dashboard";
 import BaseLayout from "@layouts/base";
-import Home from "@pages/home";
+import Home from "@pages/base/home";
 import Login from "@pages/account/login";
 import AuthLayout from "@layouts/auth";
-import Knowledge from "@pages/admin/knowledge";
-import Research from "@pages/admin/research";
-import Library from "@pages/admin/library";
 import UploadKnowledge from "../pages/admin/knowledge/uploadKnowledge";
 import UploadResearch from "../pages/admin/research/uploadResearch";
 import UploadLibrary from "../pages/admin/library/uploadLibrary";
 import EditLibrary from "../pages/admin/library/editLibrary";
 import EditResearch from "../pages/admin/research/editResearch";
 import EditKnowledge from "../pages/admin/knowledge/editKnowledge";
+import AdminKnowledge from "../pages/admin/knowledge";
+import AdminResearch from "../pages/admin/research";
+import AdminLibrary from "../pages/admin/library";
+import Knowledge from "../pages/base/knowledge/Knowledge";
+import Library from "../pages/base/library/Library";
+import Research from "../pages/base/research/Research";
+import AdminCalendar from "../pages/admin/calendar/AdminCalendar";
 
 const routes = [
    {
@@ -32,7 +36,7 @@ const routes = [
       },
       {
         path: urls.adminKnowledge,
-        component: <Knowledge />,
+        component: <AdminKnowledge />,
         isPublic: false,
       },
       {
@@ -47,7 +51,7 @@ const routes = [
       },
       {
         path: urls.adminResearch,
-        component: <Research />,
+        component: <AdminResearch />,
         isPublic: false,
       },
       {
@@ -62,7 +66,7 @@ const routes = [
       },
       {
         path: urls.adminLibrary,
-        component: <Library />,
+        component: <AdminLibrary />,
         isPublic: false
       },
       {
@@ -77,7 +81,7 @@ const routes = [
       },
       {
         path: urls.adminCalendar,
-        component: <Library />,
+        component: <AdminCalendar />,
         isPublic: false
       }
     ]
@@ -93,7 +97,37 @@ const routes = [
     ]
   },
   {
-    layout: <AuthLayout />,
+    layout: <BaseLayout />,
+    routes: [
+      {
+        path: urls.knowledge,
+        component: <Knowledge />,
+        isPublic: true
+      }
+    ]
+  },
+  {
+    layout: <BaseLayout />,
+    routes: [
+      {
+        path: urls.library,
+        component: <Library />,
+        isPublic: true
+      }
+    ]
+  },
+  {
+    layout: <BaseLayout />,
+    routes: [
+      {
+        path: urls.research,
+        component: <Research />,
+        isPublic: true
+      }
+    ]
+  },
+  {
+    layout: <BaseLayout />,
     routes: [
       {
         path: urls.login,

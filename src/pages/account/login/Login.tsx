@@ -39,17 +39,17 @@ const Login: React.FC = () => {
         initialValues={{}}
         onFinish={onFinish}
       >
-        <section className="bg-gray-200 min-h-screen flex items-center justify-center">
-          <div className="bg-light-green flex rounded-2xl shadow-lg md:w-4/6 p-5 items-center">
+        <section className="bg-transparent min-h-screen flex justify-center">
+          <div className="md:bg-gray-200 md:bg-opacity-30 bg-transparent flex md:rounded-2xl md:shadow-lg md:h-4/6 mt-10 h-full w-full md:w-4/6 p-5 items-center justify-center">
             <div className="md:w-1/2 px-4 md:px-8 lg:px-16 ">
               <div className='flex flex-col gap-2'>
                 <div className='flex items-center justify-between'>
                   <Text className="text-dark-green" fontSize='2xl' fontWeight='bold'>ورود</Text>
-                  <Button onClick={() => navigate(urls.home)} type="primary" className="bg-mid-green text-white hover:scale-105 duration-300">
+                  <Button onClick={() => navigate(-1)} type="primary" className="bg-mid-green text-white hover:scale-105 duration-300">
                     <Text fontSize='base' fontWeight='medium' color="white">برگشت</Text>
                   </Button>
                 </div>
-                <Text className="mt-4 text-dark-green" fontSize='xs'>برای ورود به داشبورد ادمین نام کاربری و کلمه عبور خود را وارد کنید</Text>
+                <Text className="mt-4 text-dark-green" fontSize='xs'>برای ورود نام کاربری و کلمه عبور خود را وارد کنید</Text>
               </div>
               <div className="flex flex-col gap-4">
                 <Form.Item
@@ -93,7 +93,7 @@ const Login: React.FC = () => {
 
               <div className="mt-6 grid grid-cols-3 items-center text-gray-400">
                 <hr className="border-gray-400" />
-                <Text className="text-center" fontSize='sm'>داشبورد ادمین</Text>
+                <Text className="text-center" fontSize='sm'>ورود کاربر</Text>
                 <hr className="border-gray-400"/>
               </div>
             </div>

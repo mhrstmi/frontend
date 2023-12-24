@@ -1,2 +1,2 @@
-export { default } from './Knowledge';
+export { default } from './AdminKnowledge';
 

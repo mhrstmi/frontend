@@ -7,17 +7,14 @@ import { Button, Layout, Menu, Image } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import urls from '@routes/urls';
 import { RxDashboard } from 'react-icons/rx';
-import { GiArchiveResearch, GiBookshelf, GiNotebook } from 'react-icons/gi';
 import Text from '@components/Text';
 import { IoCalendarOutline } from 'react-icons/io5';
-import { MdKeyboardArrowDown } from 'react-icons/md';
-import SoldierCloth from '@assets/images/soldier-cloth.png'
 import { useAuth } from '../../providers/AuthProvider';
 import { LuSchool } from "react-icons/lu";
 import Logo from '@assets/images/logo.png'
-
-
-
+import { PiBooksLight } from "react-icons/pi";
+import { PiNotePencilFill } from "react-icons/pi";
+import { LuSearch } from "react-icons/lu";
 
 
 
@@ -57,19 +54,19 @@ const AdminLayout: React.FC = () => {
                         },
                         {
                             key: urls.adminResearch,
-                            icon: <GiArchiveResearch />,
+                            icon: <LuSearch />,
                             label: <Text>پژوهشنامه</Text>,
                             onClick: () => navigate(urls.adminResearch)
                         },
                         {
                             key: urls.adminKnowledge,
-                            icon: <GiNotebook />,
+                            icon: <PiNotePencilFill />,
                             label: <Text>دانشنامه</Text>,
                             onClick: () => navigate(urls.adminKnowledge)
                         },
                         {
                             key: urls.adminLibrary,
-                            icon: <GiBookshelf />,
+                            icon: <PiBooksLight />,
                             label: <Text>کتابخانه</Text>,
                             onClick: () => navigate(urls.adminLibrary)
                         },
@@ -77,7 +74,7 @@ const AdminLayout: React.FC = () => {
                             key: urls.adminCalendar,
                             icon: <IoCalendarOutline />,
                             label: <Text>تقویم مقاومت</Text>,
-                            onClick: () => navigate(urls.adminLibrary)
+                            onClick: () => navigate(urls.adminCalendar)
                         },
                         {
                             key: urls.adminSchool,

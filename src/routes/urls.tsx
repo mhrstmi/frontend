@@ -1,5 +1,8 @@
 const urls = {
     home: '/',
+    research: '/research',
+    knowledge: '/knowledge',
+    library: '/library',
 
     // admin
     adminHome: '/admin',

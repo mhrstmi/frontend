@@ -1,2 +1,2 @@
-export { default } from './Research';
+export { default } from './AdminResearch';
 
