@@ -11,30 +11,25 @@ import fa_IR from "antd/lib/locale/fa_IR";
 import "moment/locale/fa";
 import dayjs from 'dayjs'
 import School from '@assets/images/school.jpg'
+import useAPI from '../../../hooks/useAPI';
 //@ts-ignore
 dayjs.calendar('jalali');
-
 
 const Home = () => {
   const navigate = useNavigate()
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const [event, setEvent] = useState()
+  const [calendarModal, setCalendarModal] = useState(false)
 
+  const calendar = useAPI("/calendar", "get", {})
+  const slider = useAPI("/slider", "get", {})
 
   return (
       <div className='p-5'>
         <div className='w-full pb-5 rounded-lg'>
           <Carousel effect="fade" autoplay>
             <div>
-              <h3 className='h-52 md:h-[500px] bg-mid-green'>1</h3>
-            </div>
-            <div>
-              <h3 className='h-52 md:h-[500px] bg-mid-green'>2</h3>
-            </div>
-            <div>
-              <h3 className='h-52 md:h-[500px] bg-mid-green'>3</h3>
-            </div>
-            <div>
-              <h3 className='h-52 md:h-[500px] bg-mid-green'>4</h3>
+              <h3 className='h-52 md:h-[500px] bg-mid-green'></h3>
             </div>
           </Carousel>
         </div>
@@ -89,13 +84,41 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="w-full flex flex-col bg-white rounded-lg col-span-2">
-            <div className='flex justify-center items-center p-5'>
-              <Text fontSize='3xl' fontWeight='bold'>تقویم مقاومت</Text>
+          <div className="w-full flex flex-col rounded-lg col-span-2">
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+            <div className='col-span-1 lg:col-span-2 bg-white w-full flex flex-col rounded-lg'>
+                <div className='flex justify-center items-center p-5'>
+                  <Text fontSize='3xl' fontWeight='bold'>تقویم مقاومت</Text>
+                </div>
+                <ConfigProvider locale={fa_IR}  direction="rtl">
+                  <Calendar 
+                    fullscreen={isMobile ? false : true} 
+                    cellRender={(value) => (
+                      <div className='w-full h-full flex flex-col justify-center items-center'>
+                        {calendar.data?.find(item => dayjs(item.dateShow) === value) && <span className="rounded-full bg-red-500 w-1 h-1"></span>}
+                        <Text fontSize='sm' fontWeight='light' className='hidden md:block text-dark-green'>{calendar.data?.find(item => dayjs(item.dateShow) === value)?.text}</Text>
+                      </div>
+                    )}
+                    className='flex items-center flex-col justify-center border'
+                    onSelect={() => {}}  
+                  />
+                </ConfigProvider>
+              </div>
+              <div className='col-span-1 lg:col-span-1 bg-white w-full h-full rounded-lg flex flex-col overflow-auto max-h-[900px]'>
+                <div className='flex justify-center items-center p-5'>
+                  <Text fontSize='3xl' fontWeight='bold'>مناسبت ها</Text>
+                </div>
+                <Divider className='m-0' />
+                <div className="flex flex-col gap-5 p-5 w-full h-full">
+                  {calendar.data?.map((item) => (
+                    <div className="flex flex-col gap-5 p-3 rounded-lg border hover:scale-105 transition-transform duration-700 cursor-pointer">
+                      <Text fontSize='base' fontWeight='bold'>{item.dateShow}</Text>
+                      <Text fontSize='sm' fontWeight='normal'>{item.text}</Text>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <ConfigProvider locale={fa_IR}  direction="rtl">
-              <Calendar fullscreen={isMobile ? false : true} className='flex items-center flex-col justify-center border'  />
-            </ConfigProvider>
           </div>
         </div>
       </div>

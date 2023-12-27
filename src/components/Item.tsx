@@ -9,7 +9,7 @@ import { Button } from 'antd'
 
 
 
-const Item = ({ data, tab }) => {
+const Item = ({ data, type }) => {
     const itemClassName = `
         flex  w-full rounded-lg rounded-es-[30px] 
         rounded-se-[30px] border border-solid border-mid-green bg-mid-green
@@ -17,9 +17,9 @@ const Item = ({ data, tab }) => {
     `
 
   return (
-    <div className="w-full flex justify-between flex-col bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
-        <div className='max-h-30 p-3 flex items-center justify-center'>
-            <img className="w-full object-fill rounded-xl" src={''} alt="" />
+    <div className="w-full flex gap-5 justify-between flex-col bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
+        <div className='px-3 py-1 rounded-lg shadow-sm bg-mid-green w-fit h-fit'>
+            <Text fontSize='sm' fontWeight='bold' className='text-white'>{type}</Text>
         </div>
         <div className="p-2 flex flex-col gap-3">
             <Text fontWeight='bold' fontSize='xl' className='text-dark-green line-clamp-1'>{data?.title && data?.title}</Text>

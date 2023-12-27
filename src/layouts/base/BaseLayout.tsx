@@ -35,13 +35,8 @@ const BaseLayout = () => {
     <>
     <Layout dir="rtl" className='overflow-x-hidden bg-light-green min-h-screen'>
       <Header className="bg-transparent flex items-center justify-between px-5 py-2">
-        <div className="flex items-center gap-6">
-          <Button onClick={() => setCollapsed(!collapsed)} className='flex items-center justify-center p-0 m-0 border-none bg-transparent lg:hidden'>
-            <MenuOutlined className="text-2xl text-blue-500 cursor-pointer"/>
-          </Button>
-          <Button onClick={() => navigate(urls.login)} className="bg-green-500 hover:bg-[#87acec]">
-            <Text fontSize='base' fontWeight='normal' className='text-white h-fit'>ورود</Text>
-          </Button>
+        <div onClick={() => navigate(urls.home)}>
+            <img className="w-8 cursor-pointer" src={Logo} alt="..." />
         </div>
         <div className="items-center h-full gap-8 hidden lg:flex">
           <NavLink to={urls.home} title='صفحه اصلی'>
@@ -66,8 +61,13 @@ const BaseLayout = () => {
             <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.adminCalendar ? 'text-blue-500' : 'text-black'} `}>مدرسه مقاومت</Text>
           </NavLink>
         </div>
-        <div onClick={() => navigate(urls.home)}>
-            <img className="w-8 cursor-pointer" src={Logo} alt="..." />
+        <div className="flex items-center gap-6">
+          <Button onClick={() => setCollapsed(!collapsed)} className='flex items-center justify-center p-0 m-0 border-none bg-transparent lg:hidden'>
+            <MenuOutlined className="text-2xl text-blue-500 cursor-pointer"/>
+          </Button>
+          <Button onClick={() => navigate(urls.login)} className="bg-green-500 hover:bg-[#87acec]">
+            <Text fontSize='base' fontWeight='normal' className='text-white h-fit'>ورود</Text>
+          </Button>
         </div>
       </Header>
       <Layout className='relative'>

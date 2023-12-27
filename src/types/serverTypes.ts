@@ -7,12 +7,12 @@
 
 export interface paths {
   "": {
-    get: operations["LibraryController_getAll"];
+    get: operations["AppController_getHello"];
   };
-  "/knowledge": {
+  "/knowledge/{group}": {
     get: operations["KnowledgeController_getAll"];
   };
-  "/knowledge/list": {
+  "/knowledge/{group}/list": {
     get: operations["KnowledgeController_getList"];
   };
   "/knowledge/{id}": {
@@ -24,6 +24,14 @@ export interface paths {
   "/admin/knowledge/{id}": {
     put: operations["AdminKnowledgeController_updateKnowledge"];
     delete: operations["AdminKnowledgeController_deleteKnowledge"];
+  };
+  "/group/knowledge": {
+    get: operations["KnowledgeGroupController_getAllKnowledgeGroups"];
+    post: operations["KnowledgeGroupController_createKnowledgeGroup"];
+  };
+  "/group/knowledge/{id}": {
+    delete: operations["KnowledgeGroupController_deleteKnowledgeGroup"];
+    patch: operations["KnowledgeGroupController_updateKnowledgeGroup"];
   };
   "/admin/login": {
     post: operations["AdminConrtroller_loginAdmin"];
@@ -38,10 +46,10 @@ export interface paths {
   "/calendar": {
     get: operations["CalendarController_getAllCalendar"];
   };
-  "/research": {
+  "/research/{group}": {
     get: operations["ResearchController_getAll"];
   };
-  "/research/list": {
+  "/research/{group}/list": {
     get: operations["ResearchController_getList"];
   };
   "/research/{id}": {
@@ -54,18 +62,38 @@ export interface paths {
     put: operations["AdminResearchController_updateResearch"];
     delete: operations["AdminResearchController_deleteResearch"];
   };
+  "/group/research": {
+    get: operations["ResearchGroupController_getAllResearchGroups"];
+    post: operations["ResearchGroupController_createResearchGroup"];
+  };
+  "/group/research/{id}": {
+    delete: operations["ResearchGroupController_deleteResearchGroup"];
+    patch: operations["ResearchGroupController_updateResearchGroup"];
+  };
+  "/student/signup": {
+    post: operations["StudentController_signup"];
+  };
+  "/student/signin": {
+    post: operations["StudentController_signin"];
+  };
+  "/student": {
+    get: operations["StudentController_studentList"];
+  };
+  "/slider": {
+    get: operations["SliderController_getSlider"];
+    post: operations["SliderController_createSlider"];
+  };
   "/library": {
+    get: operations["LibraryController_getAll"];
     post: operations["AdminLibraryController_createLibrary"];
   };
   "/library/{id}": {
+    get: operations["LibraryController_getDetail"];
     put: operations["AdminLibraryController_updateLibrary"];
     delete: operations["AdminLibraryController_deleteLibrary"];
   };
-  "/list": {
+  "/library/list": {
     get: operations["LibraryController_getList"];
-  };
-  "/{id}": {
-    get: operations["LibraryController_getDetail"];
   };
   "/seed": {
     post: operations["SeedController_seedDatabase"];
@@ -103,6 +131,23 @@ export interface components {
       status: number;
       message: string;
       data?: Record<string, never>;
+    };
+    KnowledgeGroupDto: {
+      file: string[];
+      /** @description The name of group */
+      name: string;
+    };
+    KnowledgeGroupListOutputDto: {
+      id: number;
+      name: string;
+      fileName: string;
+      path: string;
+      mimeType: string;
+    };
+    KnowledgeGroupUpdateDto: {
+      file: string[];
+      /** @description The name of group */
+      name?: string;
     };
     AdminLoginDto: {
       userName: string;
@@ -161,6 +206,50 @@ export interface components {
       body: string;
       abstract: string;
     };
+    ResearchGroupDto: {
+      file: string[];
+      /** @description The name of group */
+      name: string;
+    };
+    ResearchGroupListOutputDto: {
+      id: number;
+      name: string;
+      fileName: string;
+      path: string;
+      mimeType: string;
+    };
+    ResearchGroupUpdateDto: {
+      file: string[];
+      /** @description The name of group */
+      name?: string;
+    };
+    SignupStudent: {
+      /** @enum {number} */
+      grade?: 0 | 1 | 2 | 3;
+      fatherName?: string;
+      codeMelli: string;
+      password: string;
+      /** Format: date-time */
+      birthDate: string;
+      mobile: string;
+    };
+    StudentSigninDto: {
+      codeMelli: string;
+      password: string;
+    };
+    StudentListOutputDto: {
+      id: number;
+      codeMelli: string;
+      mobile: string;
+      /** @enum {number} */
+      grade?: 0 | 1 | 2 | 3;
+      /** Format: date-time */
+      birthDate: string;
+      fatherName?: string;
+    };
+    SliderDto: {
+      "files[]": string[];
+    };
     LibraryDto: {
       "files[]": string[];
       /** @description The title */
@@ -198,16 +287,11 @@ export type external = Record<string, never>;
 
 export interface operations {
 
-  LibraryController_getAll: {
-    parameters: {
-      query?: {
-        search?: string;
-      };
-    };
+  AppController_getHello: {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["LibraryFullOutPutDto"][];
+          "application/json": string;
         };
       };
     };
@@ -216,6 +300,9 @@ export interface operations {
     parameters: {
       query?: {
         search?: string;
+      };
+      path: {
+        group: number;
       };
     };
     responses: {
@@ -230,6 +317,9 @@ export interface operations {
     parameters: {
       query?: {
         search?: string;
+      };
+      path: {
+        group: number;
       };
     };
     responses: {
@@ -291,6 +381,67 @@ export interface operations {
     parameters: {
       path: {
         id: number;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  KnowledgeGroupController_getAllKnowledgeGroups: {
+    parameters: {
+      query?: {
+        search?: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["KnowledgeGroupListOutputDto"][];
+        };
+      };
+    };
+  };
+  KnowledgeGroupController_createKnowledgeGroup: {
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["KnowledgeGroupDto"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  KnowledgeGroupController_deleteKnowledgeGroup: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  KnowledgeGroupController_updateKnowledgeGroup: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["KnowledgeGroupUpdateDto"];
       };
     };
     responses: {
@@ -383,6 +534,9 @@ export interface operations {
       query?: {
         search?: string;
       };
+      path: {
+        group: number;
+      };
     };
     responses: {
       200: {
@@ -396,6 +550,9 @@ export interface operations {
     parameters: {
       query?: {
         search?: string;
+      };
+      path: {
+        group: number;
       };
     };
     responses: {
@@ -467,6 +624,146 @@ export interface operations {
       };
     };
   };
+  ResearchGroupController_getAllResearchGroups: {
+    parameters: {
+      query?: {
+        search?: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResearchGroupListOutputDto"][];
+        };
+      };
+    };
+  };
+  ResearchGroupController_createResearchGroup: {
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["ResearchGroupDto"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  ResearchGroupController_deleteResearchGroup: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  ResearchGroupController_updateResearchGroup: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["ResearchGroupUpdateDto"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  StudentController_signup: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["SignupStudent"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  StudentController_signin: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["StudentSigninDto"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  StudentController_studentList: {
+    parameters: {
+      query?: {
+        search?: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["StudentListOutputDto"][];
+        };
+      };
+    };
+  };
+  SliderController_getSlider: {
+    responses: {
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  SliderController_createSlider: {
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["SliderDto"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  LibraryController_getAll: {
+    parameters: {
+      query?: {
+        search?: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["LibraryFullOutPutDto"][];
+        };
+      };
+    };
+  };
   AdminLibraryController_createLibrary: {
     requestBody: {
       content: {
@@ -477,6 +774,20 @@ export interface operations {
       201: {
         content: {
           "application/json": components["schemas"]["HttpResponseDto"];
+        };
+      };
+    };
+  };
+  LibraryController_getDetail: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["LibraryFullOutPutDto"];
         };
       };
     };
@@ -524,20 +835,6 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["LibraryListOutPutDto"][];
-        };
-      };
-    };
-  };
-  LibraryController_getDetail: {
-    parameters: {
-      path: {
-        id: number;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["LibraryFullOutPutDto"];
         };
       };
     };

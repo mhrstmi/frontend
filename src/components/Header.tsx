@@ -6,7 +6,7 @@ import { MdOutlineAddCircle } from "react-icons/md";
 
 export enum Sections {
   VIEW = "مشاهده",
-  EDIT = "ویراش",
+  EDIT = "ویرایش",
   ADD = "اضافه کردن",
 }
 
