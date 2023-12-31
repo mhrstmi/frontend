@@ -12,7 +12,7 @@ const Research = () => {
 
   return (
     <div className='p-3 md:p-5 xl:p-10'>
-      <Title title={'پرسشنامه ها'}  desc="پرسشنامه های جمع آوری شده" />
+      <Title title={'پژوهشنامه ها'}  desc="پژوهشنامه های جمع آوری شده" />
         <Breadcrumb
           className='my-10'
           items={[
@@ -21,7 +21,7 @@ const Research = () => {
               title: <Text fontSize='lg' fontWeight='bold'><HomeOutlined className='text-lg font-bold'/> صفحه اصلی</Text>,
             },
             {
-              title: <Text fontSize='lg' fontWeight='bold'>پرسشنامه ها</Text>,
+              title: <Text fontSize='lg' fontWeight='bold'>پژوهشنامه ها</Text>,
             },
           ]}
         />
@@ -29,7 +29,7 @@ const Research = () => {
         <div className={`md:p-10 p-3 ${getResearch.data && getResearch.data.length ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5' : null } bg-white w-full rounded-lg h-full`}>
             {getResearch.data && getResearch.data.length ? getResearch.data?.map(item => (
                 <Item 
-                  type={'پرسشنامه'}
+                  type={'پژوهشنامه'}
                   data={{
                     abstract: item.abstract,
                     title: item.title,

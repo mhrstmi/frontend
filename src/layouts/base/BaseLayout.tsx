@@ -17,11 +17,6 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 
 
 
-
-
-
-
-
 const { Header, Sider, Content } = Layout;
 
 const BaseLayout = () => {
@@ -43,7 +38,7 @@ const BaseLayout = () => {
             <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.home ? 'text-blue-500' : 'text-black'} `}>صفحه اصلی</Text>
           </NavLink>
           <NavLink to={urls.research}>
-            <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.research ? 'text-blue-500' : 'text-black'} `}>پرسشنامه ها</Text>
+            <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.research ? 'text-blue-500' : 'text-black'} `}>پژوهشنامه ها</Text>
           </NavLink>
           <NavLink to={urls.knowledge}>
             <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.knowledge ? 'text-blue-500' : 'text-black'} `}>دانشنامه ها</Text>
@@ -123,12 +118,6 @@ const BaseLayout = () => {
                 icon: <TbMessageQuestion />,
                 label: <Text>پرسمان و گفتگو</Text>,
                 onClick: () => navigate(urls.adminLibrary)
-              },
-              {
-                  key: urls.adminCalendar,
-                  icon: <IoCalendarOutline />,
-                  label: <Text>تقویم مقاومت</Text>,
-                  onClick: () => navigate(urls.adminLibrary)
               },
               {
                   key: urls.adminSchool,
