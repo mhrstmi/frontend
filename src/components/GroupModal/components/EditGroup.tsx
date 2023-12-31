@@ -142,7 +142,7 @@ const EditGroup: React.FC<propsTypes> = ({ section, onClose, isModalOpen, setSta
                         ویرایش کردن
                         </Text>
                     </Button>
-                    <Button onClick={handleDelete} loading={deleteGroup.isLoading} className='bg-red-500 text-white w-full md:w-fit flex items-center gap-2 p-5'>
+                    <Button type="primary" onClick={handleDelete} loading={deleteGroup.isLoading} className='bg-red-500 text-white w-full md:w-fit flex items-center gap-2 p-5'>
                         <div className='flex items-center justify-center gap-2 w-full h-full'>
                             <MdDelete className='text-white' />
                             <Text fontSize='lg' fontWeight='heavy' className='text-white'>
