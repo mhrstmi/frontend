@@ -139,7 +139,7 @@ const EditGroup: React.FC<propsTypes> = ({ section, onClose, isModalOpen, setSta
                 <div className='flex flex-col md:flex-row gap-3'>
                     <Button type="primary" htmlType='submit' loading={editGroup.isLoading} className='bg-green-500 w-full md:w-fit flex items-center justify-center p-5'>
                         <Text fontSize='lg' fontWeight='heavy'>
-                        ویراش کردن
+                        ویرایش کردن
                         </Text>
                     </Button>
                     <Button onClick={handleDelete} loading={deleteGroup.isLoading} className='bg-red-500 text-white w-full md:w-fit p-5'>
