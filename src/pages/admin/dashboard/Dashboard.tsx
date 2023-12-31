@@ -78,7 +78,7 @@ const Dashboard = () => {
                 <Text fontSize='base' fontWeight='heavy' className='text-white'>پژوهشنامه ها</Text>
               </Button>
               <Button onClick={() => navigate(urls.adminUploadResearch)} className='bg-dark-green w-full'>
-                <Text fontSize='base' fontWeight='heavy' className='text-white'>ایجاد پرسشنامه</Text>
+                <Text fontSize='base' fontWeight='heavy' className='text-white'>ایجاد پژوهشنامه</Text>
               </Button>
             </div>
           </div>
