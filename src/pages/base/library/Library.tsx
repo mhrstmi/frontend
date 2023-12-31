@@ -7,7 +7,7 @@ import { HomeOutlined } from '@ant-design/icons'
 import urls from '../../../routes/urls'
 
 const Library = () => {
-  const getLibrary = useAPI('/list', 'get', {})
+  const getLibrary = useAPI('/library', 'get', {})
 
 
   return (

@@ -5,7 +5,7 @@ import { Button, Spin, message } from 'antd';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import useAPI from '@hooks/useAPI';
-import { Text } from '../../../components';
+import { GroupModal, Text } from '../../../components';
 import urls from '../../../routes/urls';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,8 +18,9 @@ const { confirm, } = Modal;
 
 const AdminResearch = () => {
   const [itemId, setItemId] = useState(0);
+  const [groupModal, setGroupModal] = useState(false);
   const navigate = useNavigate()
-  const getResearch = useAPI('/research/list', 'get', {})
+  const getResearch = useAPI('/research', 'get', {})
   const deleteResearch = useAPI('/admin/research/{id}', 'delete', {
     param: {
       id: itemId
@@ -82,12 +83,18 @@ const AdminResearch = () => {
       render: (abstract) => <Text fontSize='base' fontWeight='medium' className='line-clamp-3 max-w-[400px] text-dark-green'>{abstract}</Text>
     },
     {
+      index: 'group',
+      key: 'group',
+      title: 'گروه',
+      render: (group) => <Text fontSize='base' fontWeight='medium' className='line-clamp-3 max-w-[200px] text-dark-green'>{group}</Text>
+    },
+    {
       index: '',
       key: '',
       title: '',
       render: (_, record) => (
-        <div className='flex flex-col gap-3'>
-          <Button onClick={() => navigate(`/admin/knowledge/edit/${record.id}`)} className='p-3 w-fit h-fit flex items-center justify-center bg-green-600'>
+        <div className='flex flex-col gap-3 justify-end items-center w-full bg-transparent'>
+          <Button onClick={() => navigate(`/admin/research/edit/${record.id}`)} className='p-3 w-fit h-fit flex items-center justify-center bg-green-600'>
             <FaEdit className='text-white' />
           </Button>
           <Button onClick={() => showDeleteConfirm(record.id)} className='p-3 w-fit h-fit flex items-center justify-center bg-red-500 rounded-lg'>
@@ -100,7 +107,7 @@ const AdminResearch = () => {
 
   return (
     <div className="p-3 md:p-10 rounded-3xl h-full w-full overflow-auto">
-      <Header section={Sections.VIEW} title="پژوهشنامه ها" onClick={() => navigate(urls.adminUploadResearch)} />
+      <Header section={Sections.VIEW} title="پژوهشنامه ها" onClick={() => navigate(urls.adminUploadResearch)} openModal={() => setGroupModal(true)} />
       <Spin spinning={getResearch.isLoading || getResearch.isRefetching}>
         <CustomTable 
           columns={columns} 
@@ -108,10 +115,17 @@ const AdminResearch = () => {
             id: item.id,
             title: item.title,
             body: item.body,
-            abstract: item.abstract
+            abstract: item.abstract,
+            group: item.group?.name
           }))}
         />
       </Spin>
+      <GroupModal 
+        section='research'
+        title="گروه های پژوهشنامه"
+        onClose={() => setGroupModal(false)}
+        isModalOpen={groupModal}
+      />
     </div>
   );
 };

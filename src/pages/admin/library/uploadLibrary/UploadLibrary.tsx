@@ -18,21 +18,35 @@ const { Dragger } = Upload;
 
 const UploadLibrary = () => {
   const navigate = useNavigate()
-  const postLibrary = useAPI('/library', 'post', {})
-  const [files, setFiles] = useState<UploadFile<any>[]>([])
+  const postLibrary = useAPI('/library', 'post', {
+    headers: { 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
+  })
+  const [files, setFiles] = useState<UploadFile[]>([])
 
   const [form] = Form.useForm();
-  const getLibrary = useAPI('/list', 'get', {})
+  const getLibrary = useAPI('/library', 'get', {})
+
+  const handleRemove = (file: UploadFile) => {
+    if (files.some((item) => item.uid === file.uid)) {
+      setFiles((fileList) => fileList.filter((item) => item.uid !== file.uid));
+      return true;
+    }
+    return false;
+  };
+  
 
   const props: UploadProps = {
-    name: 'file',
     multiple: true,
-    beforeUpload: () => false,
-    onChange(info) {
-      setFiles(info.fileList)
+    beforeUpload: (file) => {
+      if (!file) {
+        message.error('در انتخاب فایل مشکلی پیش آمد')
+        return false;
+      }
+      setFiles((state) => [...state, file])
+      return false
     },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
+    onRemove: (file: UploadFile) => {
+      handleRemove(file);
     },
   };
 
@@ -43,8 +57,8 @@ const UploadLibrary = () => {
         comment: form.getFieldValue('comment'),
         title: form.getFieldValue('title')
       })
+      await getLibrary.refetch()
       message.success('با موفقیت اضافه شد')
-      getLibrary.refetch()
       navigate(urls.adminLibrary)
     } catch(err){
       //@ts-ignore
@@ -55,7 +69,7 @@ const UploadLibrary = () => {
   
   return (
     <div className="p-3 md:p-10 rounded-3xl h-full overflow-y-auto">
-      <Header title="ضافه کردن به کتابخانه" section={Sections.ADD} onClick={() => navigate(urls.adminLibrary)} />
+      <Header title="اضافه کردن به کتابخانه" section={Sections.ADD} onClick={() => navigate(-1)} />
       <Form
         form={form}
         layout="vertical"

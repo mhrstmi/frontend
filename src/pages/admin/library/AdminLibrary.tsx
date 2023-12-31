@@ -17,7 +17,7 @@ const { confirm, } = Modal;
 
 const AdminLibrary = () => {
   const [itemId, setItemId] = useState(0);
-  const getLibrary = useAPI('/list', 'get', {})
+  const getLibrary = useAPI('/library', 'get', {})
   const deleteLibrary = useAPI('/library/{id}', 'delete', {
     param: {
       id: itemId
@@ -79,7 +79,7 @@ const AdminLibrary = () => {
       key: '',
       title: '',
       render: (_, record) => (
-        <div className='flex flex-col gap-3'>
+        <div className='flex flex-col gap-3 justify-end items-center w-full bg-transparent'>
           <Button onClick={() => navigate(`/admin/library/edit/${record.id}`)} className='p-3 w-fit h-fit flex items-center justify-center bg-green-600'>
             <FaEdit className='text-white' />
           </Button>

@@ -28,9 +28,9 @@ const Home = () => {
       <div className='p-5'>
         <div className='w-full pb-5 rounded-lg'>
           <Carousel effect="fade" autoplay>
-            <div>
-              <h3 className='h-52 md:h-[500px] bg-mid-green'></h3>
-            </div>
+              <div>
+                <img src="http://188.213.197.187:7080/api/uploads/library/35220f1c-be3e-49a5-a687-d73b46181821.png" className='h-52 md:h-[500px] bg-mid-green' />
+              </div>
           </Carousel>
         </div>
         <div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-5'>
@@ -85,18 +85,17 @@ const Home = () => {
             </div>
           </div>
           <div className="w-full flex flex-col rounded-lg col-span-2">
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-            <div className='col-span-1 lg:col-span-2 bg-white w-full flex flex-col rounded-lg'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
+            <div className='bg-white w-full flex flex-col rounded-lg'>
                 <div className='flex justify-center items-center p-5'>
                   <Text fontSize='3xl' fontWeight='bold'>تقویم مقاومت</Text>
                 </div>
                 <ConfigProvider locale={fa_IR}  direction="rtl">
                   <Calendar 
-                    fullscreen={isMobile ? false : true} 
+                    fullscreen={false} 
                     cellRender={(value) => (
                       <div className='w-full h-full flex flex-col justify-center items-center'>
                         {calendar.data?.find(item => dayjs(item.dateShow) === value) && <span className="rounded-full bg-red-500 w-1 h-1"></span>}
-                        <Text fontSize='sm' fontWeight='light' className='hidden md:block text-dark-green'>{calendar.data?.find(item => dayjs(item.dateShow) === value)?.text}</Text>
                       </div>
                     )}
                     className='flex items-center flex-col justify-center border'
@@ -104,7 +103,7 @@ const Home = () => {
                   />
                 </ConfigProvider>
               </div>
-              <div className='col-span-1 lg:col-span-1 bg-white w-full h-full rounded-lg flex flex-col overflow-auto max-h-[900px]'>
+              <div className=' bg-white w-full rounded-lg flex flex-col overflow-auto h-full max-h-[415px]'>
                 <div className='flex justify-center items-center p-5'>
                   <Text fontSize='3xl' fontWeight='bold'>مناسبت ها</Text>
                 </div>

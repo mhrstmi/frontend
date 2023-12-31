@@ -4,12 +4,13 @@ import useAPI from '@hooks/useAPI';
 import Text from '@components/Text';
 import urls from '@routes/urls';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import { useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadFile, UploadProps } from 'antd';
 import { message, Upload } from 'antd';
+import { GroupModal } from '../../../../components';
 
 const { Dragger } = Upload;
 
@@ -17,22 +18,38 @@ const { Dragger } = Upload;
 
 
 const UploadResearch = () => {
+  const [groupModal, setGroupModal] = useState(false);
   const navigate = useNavigate()
-  const postResearch = useAPI('/admin/research', 'post', {})
-  const getResearch = useAPI('/research/list', 'get', {})
-  const [files, setFiles] = useState<UploadFile<any>[]>([])
+  const postResearch = useAPI('/admin/research', 'post', {
+    headers: { 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
+  })
+  const getResearch = useAPI('/research', 'get', {})
+  const getGroups = useAPI('/group/research', 'get', {})
+  const [files, setFiles] = useState<UploadFile[]>([])
 
   const [form] = Form.useForm();
 
+  const handleRemove = (file: UploadFile) => {
+    if (files.some((item) => item.uid === file.uid)) {
+      setFiles((fileList) => fileList.filter((item) => item.uid !== file.uid));
+      return true;
+    }
+    return false;
+  };
+  
+
   const props: UploadProps = {
-    name: 'file',
     multiple: true,
-    beforeUpload: () => false,
-    onChange(info) {
-      setFiles(info.fileList)
+    beforeUpload: (file) => {
+      if (!file) {
+        message.error('در انتخاب فایل مشکلی پیش آمد')
+        return false;
+      }
+      setFiles((state) => [...state, file])
+      return false
     },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
+    onRemove: (file: UploadFile) => {
+      handleRemove(file);
     },
   };
 
@@ -42,10 +59,11 @@ const UploadResearch = () => {
         "files[]": files as any,
         body: form.getFieldValue('body'),
         title: form.getFieldValue('title'),
-        abstract: form.getFieldValue('abstract')
+        abstract: form.getFieldValue('abstract'),
+        groupId: form.getFieldValue('group'),
       })
+      await getResearch.refetch()
       message.success('با موفقیت اضافه شد')
-      getResearch.refetch()
       navigate(urls.adminResearch)
     } catch(err){
       //@ts-ignore
@@ -56,7 +74,7 @@ const UploadResearch = () => {
   
   return (
     <div className="p-3 md:p-10 rounded-3xl h-full overflow-y-auto">
-      <Header title="اضافه کردن پژوهشنامه" section={Sections.ADD} onClick={() => navigate(urls.adminResearch)} />
+      <Header title="اضافه کردن پژوهشنامه" section={Sections.ADD} onClick={() => navigate(-1)} openModal={() => setGroupModal(true)} />
       <Form
         form={form}
         layout="vertical"
@@ -70,6 +88,20 @@ const UploadResearch = () => {
             <Input 
               className="w-full md:w-2/3 lg:w-1/3 border-mid-green rounded-lg border-1"
               placeholder="عنوان پژوهشنامه" 
+            />
+          </div>
+        </Form.Item>
+        <Form.Item name="group" rules={[{ required: true, message: 'لطفا گروه پژوهشنامه را وارد کنید' }]}>
+          <div className='flex flex-col gap-3 w-full md:w-2/3 lg:w-1/3'>
+            <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>گروه پژوهشنامه</Text>
+            <Select
+              size='large'
+              loading={getGroups.isLoading}
+              value={form.getFieldValue('group')}
+              onChange={(value) => form.setFieldValue('group', value)}
+              className="border-mid-green rounded-lg border-1"
+              placeholder="گروه پژوهشنامه"
+              options={getGroups.data?.map(item => ({ value: item.id, label: item.name }))}
             />
           </div>
         </Form.Item>
@@ -120,6 +152,12 @@ const UploadResearch = () => {
           </Button>
         </Form.Item>
       </Form>
+      <GroupModal 
+        section='research'
+        title="گروه های پژوهشنامه"
+        onClose={() => setGroupModal(false)}
+        isModalOpen={groupModal}
+      />
     </div>
   );
 };

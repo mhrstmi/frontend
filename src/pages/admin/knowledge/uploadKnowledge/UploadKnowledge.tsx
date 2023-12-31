@@ -4,12 +4,13 @@ import useAPI from '@hooks/useAPI';
 import Text from '@components/Text';
 import urls from '@routes/urls';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import { useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadFile, UploadProps } from 'antd';
 import { message, Upload } from 'antd';
+import { GroupModal } from '../../../../components';
 
 const { Dragger } = Upload;
 
@@ -18,21 +19,37 @@ const { Dragger } = Upload;
 
 const UploadKnowledge = () => {
   const navigate = useNavigate()
-  const postKnowledge = useAPI('/admin/knowledge', 'post', {})
-  const getKnowledge = useAPI('/knowledge/list', 'get', {})
-  const [files, setFiles] = useState<UploadFile<any>[]>([])
+  const [groupModal, setGroupModal] = useState(false);
+  const postKnowledge = useAPI('/admin/knowledge', 'post', {
+    headers: { 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
+  })
+  const getKnowledge = useAPI('/knowledge', 'get', {})
+  const getGroups = useAPI('/group/knowledge', 'get', {})
+  const [files, setFiles] = useState<UploadFile[]>([])
 
   const [form] = Form.useForm();
 
+  const handleRemove = (file: UploadFile) => {
+    if (files.some((item) => item.uid === file.uid)) {
+      setFiles((fileList) => fileList.filter((item) => item.uid !== file.uid));
+      return true;
+    }
+    return false;
+  };
+  
+
   const props: UploadProps = {
-    name: 'file',
     multiple: true,
-    beforeUpload: () => false,
-    onChange(info) {
-      setFiles(info.fileList)
+    beforeUpload: (file) => {
+      if (!file) {
+        message.error('در انتخاب فایل مشکلی پیش آمد')
+        return false;
+      }
+      setFiles((state) => [...state, file])
+      return false
     },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
+    onRemove: (file: UploadFile) => {
+      handleRemove(file);
     },
   };
 
@@ -41,10 +58,11 @@ const UploadKnowledge = () => {
       await postKnowledge.mutateAsync({
         "files[]": files as any,
         body: form.getFieldValue('body'),
-        title: form.getFieldValue('title')
+        title: form.getFieldValue('title'),
+        groupId: form.getFieldValue('group'),
       })
+      await getKnowledge.refetch()
       message.success('با موفقیت اضافه شد')
-      getKnowledge.refetch()
       navigate(urls.adminKnowledge)
     } catch(err){
       //@ts-ignore
@@ -55,7 +73,7 @@ const UploadKnowledge = () => {
   
   return (
     <div className="p-3 md:p-10 rounded-3xl h-full overflow-y-auto">
-      <Header title="اضافه کردن دانشنامه" section={Sections.ADD} onClick={() => navigate(urls.adminKnowledge)} />
+      <Header title="اضافه کردن دانشنامه" section={Sections.ADD} onClick={() => navigate(-1)} openModal={() => setGroupModal(true)} />
       <Form
         form={form}
         layout="vertical"
@@ -69,6 +87,20 @@ const UploadKnowledge = () => {
             <Input 
               className="w-full md:w-2/3 lg:w-1/3 border-mid-green rounded-lg border-1"
               placeholder="عنوان دانشنامه" 
+            />
+          </div>
+        </Form.Item>
+        <Form.Item name="group" rules={[{ required: true, message: 'لطفا گروه دانشنامه را وارد کنید' }]}>
+          <div className='flex flex-col gap-3 w-full md:w-2/3 lg:w-1/3'>
+            <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>گروه دانشنامه</Text>
+            <Select
+              size='large'
+              loading={getGroups.isLoading}
+              value={form.getFieldValue('group')}
+              onChange={(value) => form.setFieldValue('group', value)}
+              className="border-mid-green rounded-lg border-1"
+              placeholder="گروه دانشنامه"
+              options={getGroups.data?.map(item => ({ value: item.id, label: item.name }))}
             />
           </div>
         </Form.Item>
@@ -107,6 +139,12 @@ const UploadKnowledge = () => {
           </Button>
         </Form.Item>
       </Form>
+      <GroupModal 
+        section='knowledge'
+        title="گروه های دانشنامه"
+        onClose={() => setGroupModal(false)}
+        isModalOpen={groupModal}
+      />
     </div>
   );
 };

@@ -20,13 +20,14 @@ const EditLibrary = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const [defaultValues, setDefaultValues] = useState({})
-  const getLibrary = useAPI('/list', 'get', {})
-  const getOneLibarary = useAPI('/{id}', 'get', {
+  const getLibrary = useAPI('/library', 'get', {})
+  const getOneLibarary = useAPI('/library/{id}', 'get', {
     param: {
       id: Number(id)
     }
   })
   const putLibarary = useAPI('/library/{id}', 'put', {
+    headers: { 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
     param: {
       id: Number(id)
     }
@@ -47,16 +48,28 @@ const EditLibrary = () => {
     }
   }, [getOneLibarary.data])
 
+  const handleRemove = (file: UploadFile) => {
+    if (files.some((item) => item.uid === file.uid)) {
+      setFiles((fileList) => fileList.filter((item) => item.uid !== file.uid));
+      return true;
+    }
+    return false;
+  };
+  
+
   const props: UploadProps = {
-    name: 'file',
     multiple: true,
-    fileList: files as UploadFile[],
-    beforeUpload: () => false,
-    onChange(info) {
-      setFiles(info.fileList)
+    fileList: files,
+    beforeUpload: (file) => {
+      if (!file) {
+        message.error('در انتخاب فایل مشکلی پیش آمد')
+        return false;
+      }
+      setFiles((state) => [...state, file])
+      return false
     },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
+    onRemove: (file: UploadFile) => {
+      handleRemove(file);
     },
   };
 
@@ -67,8 +80,8 @@ const EditLibrary = () => {
         comment: form.getFieldValue('comment'),
         title: form.getFieldValue('title'),
       })
+      await getLibrary.refetch()
       message.success('با موفقیت ویرایش شد')
-      getLibrary.refetch()
       navigate(urls.adminLibrary)
     } catch(err){
       //@ts-ignore
@@ -79,7 +92,7 @@ const EditLibrary = () => {
   
   return (
     <div className="p-3 md:p-10 rounded-3xl h-full overflow-y-auto">
-      <Header title="ویراش" section={Sections.EDIT} onClick={() => navigate(urls.adminLibrary)} />
+      <Header title="ویرایش" section={Sections.EDIT} onClick={() => navigate(-1)} />
       <Form
         form={form}
         layout="vertical"

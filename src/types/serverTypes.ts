@@ -9,7 +9,7 @@ export interface paths {
   "": {
     get: operations["AppController_getHello"];
   };
-  "/knowledge/{group}": {
+  "/knowledge": {
     get: operations["KnowledgeController_getAll"];
   };
   "/knowledge/{group}/list": {
@@ -46,7 +46,7 @@ export interface paths {
   "/calendar": {
     get: operations["CalendarController_getAllCalendar"];
   };
-  "/research/{group}": {
+  "/research": {
     get: operations["ResearchController_getAll"];
   };
   "/research/{group}/list": {
@@ -110,11 +110,17 @@ export interface components {
       path: string;
       mimeType: string;
     };
+    KnowledgeGroupOutputDto: {
+      id: number;
+      name: string;
+      path: string;
+    };
     KnowledgeFullOutPutDto: {
       id: number;
       title: string;
       body: string;
       knowledgeAttachment?: components["schemas"]["KnowledgeAttachmentFullOutputDto"][];
+      group: components["schemas"]["KnowledgeGroupOutputDto"];
     };
     KnowledgeListOutPutDto: {
       id: number;
@@ -126,6 +132,7 @@ export interface components {
       /** @description The title */
       title: string;
       body: string;
+      groupId: number;
     };
     HttpResponseDto: {
       status: number;
@@ -186,12 +193,20 @@ export interface components {
       path: string;
       mimeType: string;
     };
+    ResearchGroupListOutputDto: {
+      id: number;
+      name: string;
+      fileName: string;
+      path: string;
+      mimeType: string;
+    };
     ResearchFullOutPutDto: {
       id: number;
       title: string;
       abstract: string;
       body: string;
       researchAttachment?: components["schemas"]["ResearchAttachmentFullOutputDto"][];
+      group: components["schemas"]["ResearchGroupListOutputDto"];
     };
     ResearchListOutPutDto: {
       id: number;
@@ -205,18 +220,12 @@ export interface components {
       title: string;
       body: string;
       abstract: string;
+      groupId: number;
     };
     ResearchGroupDto: {
       file: string[];
       /** @description The name of group */
       name: string;
-    };
-    ResearchGroupListOutputDto: {
-      id: number;
-      name: string;
-      fileName: string;
-      path: string;
-      mimeType: string;
     };
     ResearchGroupUpdateDto: {
       file: string[];
@@ -249,6 +258,9 @@ export interface components {
     };
     SliderDto: {
       "files[]": string[];
+    };
+    SliderOutputDto: {
+      path?: string;
     };
     LibraryDto: {
       "files[]": string[];
@@ -300,9 +312,6 @@ export interface operations {
     parameters: {
       query?: {
         search?: string;
-      };
-      path: {
-        group: number;
       };
     };
     responses: {
@@ -534,9 +543,6 @@ export interface operations {
       query?: {
         search?: string;
       };
-      path: {
-        group: number;
-      };
     };
     responses: {
       200: {
@@ -731,7 +737,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": Record<string, never>;
+          "application/json": components["schemas"]["SliderOutputDto"][];
         };
       };
     };

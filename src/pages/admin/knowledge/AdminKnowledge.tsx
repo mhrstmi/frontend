@@ -5,7 +5,7 @@ import useAPI from '@hooks/useAPI';
 import { Button, Spin, message } from 'antd';
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-import { Text } from '../../../components';
+import { GroupModal, Text } from '../../../components';
 import urls from '../../../routes/urls';
 import { useNavigate } from 'react-router-dom';
 import { render } from 'react-dom';
@@ -18,8 +18,9 @@ const { confirm, } = Modal;
 
 const AdminKnowledge = () => {
   const [itemId, setItemId] = useState(0);
+  const [groupModal, setGroupModal] = useState(false);
   const navigate = useNavigate()
-  const getKnowledge = useAPI('/knowledge/list', 'get', {})
+  const getKnowledge = useAPI('/knowledge', 'get', {})
   const deleteKnowledge = useAPI('/admin/knowledge/{id}', 'delete', {
     param: {
       id: itemId
@@ -76,6 +77,12 @@ const AdminKnowledge = () => {
       render: (body) => <Text fontSize='base' fontWeight='medium' className='line-clamp-3 max-w-[400px] text-dark-green'>{body}</Text>
     },
     {
+      index: 'group',
+      key: 'group',
+      title: 'گروه',
+      render: (group) => <Text fontSize='base' fontWeight='medium' className='line-clamp-3 max-w-[200px] text-dark-green'>{group}</Text>
+    },
+    {
       index: 'actions',
       key: 'actions',
       title: '',
@@ -94,7 +101,7 @@ const AdminKnowledge = () => {
   
   return (
     <div className="h-full p-3 md:p-10 rounded-3xl w-full overflow-auto">
-      <Header title="دانشنامه ها" section={Sections.VIEW} onClick={() => navigate(urls.adminUploadKnowledge)} />
+      <Header title="دانشنامه ها" section={Sections.VIEW} onClick={() => navigate(urls.adminUploadKnowledge)} openModal={() => setGroupModal(true)} />
       <Spin spinning={getKnowledge.isLoading || getKnowledge.isRefetching}>
         <CustomTable 
           columns={columns} 
@@ -102,9 +109,16 @@ const AdminKnowledge = () => {
             id: item.id,
             title: item.title,
             body: item.body,
+            group: item.group?.name
           }))}
         />
       </Spin>
+      <GroupModal 
+        section='knowledge'
+        title="گروه های دانشنامه"
+        onClose={() => setGroupModal(false)}
+        isModalOpen={groupModal}
+      />
     </div>
   );
 };

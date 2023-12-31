@@ -4,12 +4,13 @@ import useAPI from '@hooks/useAPI';
 import Text from '@components/Text';
 import urls from '@routes/urls';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import { useEffect, useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadFile, UploadProps } from 'antd';
 import { message, Upload } from 'antd';
+import { GroupModal } from '../../../../components';
 
 const { Dragger } = Upload;
 
@@ -18,56 +19,77 @@ const { Dragger } = Upload;
 
 const EditKnowledge = () => {
   const { id } = useParams()
+  const [groupModal, setGroupModal] = useState(false);
   const [defaultValues, setDefaultValues] = useState({})
+  const [files, setFiles] = useState<any>([])
+
   const navigate = useNavigate()
+  const [form] = Form.useForm();
+
   const getOneKnowledge = useAPI('/knowledge/{id}', 'get', {
     param: {
       id: Number(id)
     }
   })
   const putKnowledge = useAPI('/admin/knowledge/{id}', 'put', {
+    headers: { 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
     param: {
       id: Number(id)
     }
   })
-  const [files, setFiles] = useState<any>([])
-  const getKnowledge = useAPI('/knowledge/list', 'get', {})
+  const getKnowledge = useAPI('/knowledge', 'get', {})
+  const getGroups = useAPI('/group/knowledge', 'get', {})
 
-  const [form] = Form.useForm();
 
   useEffect(() => {
     if (getOneKnowledge.data) { 
       setDefaultValues({
         body: getOneKnowledge.data?.body,
         title: getOneKnowledge.data?.title,
+        group: getOneKnowledge.data?.group?.id,
       })
       setFiles(getOneKnowledge.data?.knowledgeAttachment)
       form.setFieldValue("body", getOneKnowledge.data?.body)
       form.setFieldValue("title", getOneKnowledge.data?.title)
+      form.setFieldValue("group", getOneKnowledge.data?.group?.id)
     }
   }, [getOneKnowledge.data])
 
+  const handleRemove = (file: UploadFile) => {
+    if (files.some((item) => item.uid === file.uid)) {
+      setFiles((fileList) => fileList.filter((item) => item.uid !== file.uid));
+      return true;
+    }
+    return false;
+  };
+  
+
   const props: UploadProps = {
     multiple: true,
-    fileList: files as UploadFile[],
-    beforeUpload: () => false,
-    onChange(info) {
-      setFiles(info.fileList)
+    fileList: files,
+    beforeUpload: (file) => {
+      if (!file) {
+        message.error('در انتخاب فایل مشکلی پیش آمد')
+        return false;
+      }
+      setFiles((state) => [...state, file])
+      return false
     },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
+    onRemove: (file: UploadFile) => {
+      handleRemove(file);
     },
   };
 
   const onSubmit = async () => {
     try{
       await putKnowledge.mutateAsync({
-        "files[]": files as any,
+        "files[]": files,
         body: form.getFieldValue('body'),
         title: form.getFieldValue('title'),
+        groupId: form.getFieldValue('group'),
       })
+      await getKnowledge.refetch()
       message.success('با موفقیت ویرایش شد')
-      getKnowledge.refetch()
       navigate(urls.adminKnowledge)
     } catch(err){
       //@ts-ignore
@@ -78,7 +100,7 @@ const EditKnowledge = () => {
   
   return (
     <div className="p-3 md:p-10 rounded-3xl h-full overflow-y-auto">
-      <Header title="ویراش دانشنامه" section={Sections.EDIT} onClick={() => navigate(urls.adminKnowledge)} />
+      <Header title="ویرایش دانشنامه" section={Sections.EDIT} onClick={() => navigate(-1)} openModal={() => setGroupModal(true)} />
       <Form
         form={form}
         layout="vertical"
@@ -93,6 +115,20 @@ const EditKnowledge = () => {
               className="w-full md:w-2/3 lg:w-1/3 border-mid-green rounded-lg border-1"
               placeholder="عنوان دانشنامه" 
             />
+          </Form.Item>
+        </div>
+        <div className='flex flex-col gap-3 w-full md:w-2/3 lg:w-1/3'>
+          <Text fontSize='lg' fontWeight='heavy' className='text-dark-green'>گروه دانشنامه</Text>
+          <Form.Item name="group" rules={[{ required: true, message: 'لطفا گروه دانشنامه را وارد کنید' }]}>
+              <Select
+                size='large'
+                value={form.getFieldValue('group')}
+                onChange={(value) => form.setFieldValue('group', value)}
+                className="border-mid-green rounded-lg border-1"
+                placeholder="گروه دانشنامه"
+                loading={getGroups.isLoading}
+                options={getGroups.data?.map(item => ({ value: item.id, label: item.name }))}
+              />
           </Form.Item>
         </div>
         <div className='flex flex-col gap-3'>
@@ -130,6 +166,12 @@ const EditKnowledge = () => {
           </Button>
         </Form.Item>
       </Form>
+      <GroupModal 
+        section='knowledge'
+        title="گروه های دانشنامه"
+        onClose={() => setGroupModal(false)}
+        isModalOpen={groupModal}
+      />
     </div>
   );
 };
