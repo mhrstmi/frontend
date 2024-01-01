@@ -15,10 +15,14 @@ import EditKnowledge from "../pages/admin/knowledge/editKnowledge";
 import AdminKnowledge from "../pages/admin/knowledge";
 import AdminResearch from "../pages/admin/research";
 import AdminLibrary from "../pages/admin/library";
-import Knowledge from "../pages/base/knowledge/Knowledge";
+import Knowledge from "../pages/base/knowledge/knowledge/Knowledge";
 import Library from "../pages/base/library/Library";
-import Research from "../pages/base/research/Research";
+import Research from "../pages/base/research/research/Research";
 import AdminCalendar from "../pages/admin/calendar/AdminCalendar";
+import EditCalendar from "../pages/admin/calendar/editCalendar";
+import UploadCalendar from "../pages/admin/calendar/uploadCalendar";
+import KnowledgeGroups from "../pages/base/knowledge/KnowledgeGroups";
+import ResearchGroups from "../pages/base/research";
 
 const routes = [
    {
@@ -83,7 +87,17 @@ const routes = [
         path: urls.adminCalendar,
         component: <AdminCalendar />,
         isPublic: false
-      }
+      },
+      {
+        path: urls.adminUploadCalendar,
+        component: <UploadCalendar />,
+        isPublic: false
+      },
+      {
+        path: urls.adminEditCalendar,
+        component: <EditCalendar />,
+        isPublic: false
+      },
     ]
   },
   {
@@ -92,6 +106,16 @@ const routes = [
       {
         path: urls.home,
         component: <Home />,
+        isPublic: true
+      }
+    ]
+  },
+  {
+    layout: <BaseLayout />,
+    routes: [
+      {
+        path: urls.knowledgeGroups,
+        component: <KnowledgeGroups />,
         isPublic: true
       }
     ]
@@ -112,6 +136,16 @@ const routes = [
       {
         path: urls.library,
         component: <Library />,
+        isPublic: true
+      }
+    ]
+  },
+  {
+    layout: <BaseLayout />,
+    routes: [
+      {
+        path: urls.researchGroups,
+        component: <ResearchGroups />,
         isPublic: true
       }
     ]

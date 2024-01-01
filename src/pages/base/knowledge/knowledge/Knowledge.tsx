@@ -1,17 +1,22 @@
 import React from 'react'
-import Item from '../../../components/Item'
-import useAPI from '../../../hooks/useAPI'
+import Item from '../../../../components/Item'
+import useAPI from '../../../../hooks/useAPI'
 import { Spin } from 'antd'
-import { Header, Text, Title } from '../../../components'
+import { Text, Title } from '../../../../components'
 
 import { Breadcrumb } from 'antd';
-import { HomeOutlined, UserOutlined } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
-import urls from '../../../routes/urls'
+import { GroupOutlined, HomeOutlined } from '@ant-design/icons'
+import { useNavigate, useParams } from 'react-router-dom'
+import urls from '../../../../routes/urls'
 
 const Knowledge = () => {
   const navigate = useNavigate()
-  const getKnowledge = useAPI('/knowledge', 'get', {})
+  const params = useParams()
+  const getKnowledge = useAPI('/knowledge/{group}/list', 'get', {
+    param: {
+      group: Number(params.groupId)
+    }
+  })
 
 
   return (      
@@ -23,6 +28,10 @@ const Knowledge = () => {
             {
               href: urls.home,
               title: <Text fontSize='lg' fontWeight='bold'><HomeOutlined className='text-lg font-bold' /> صفحه اصلی</Text>,
+            },
+            {
+              href: urls.knowledgeGroups,
+              title: <Text fontSize='lg' fontWeight='bold'><GroupOutlined className='text-lg font-bold ml-1' />گروه بندی دانشنامه ها</Text>,
             },
             {
               title: <Text fontSize='lg' fontWeight='bold'>دانشنامه ها</Text>,

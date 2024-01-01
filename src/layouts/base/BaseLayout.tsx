@@ -37,10 +37,10 @@ const BaseLayout = () => {
           <NavLink to={urls.home} title='صفحه اصلی'>
             <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.home ? 'text-blue-500' : 'text-black'} `}>صفحه اصلی</Text>
           </NavLink>
-          <NavLink to={urls.research}>
+          <NavLink to={urls.researchGroups}>
             <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.research ? 'text-blue-500' : 'text-black'} `}>پژوهشنامه ها</Text>
           </NavLink>
-          <NavLink to={urls.knowledge}>
+          <NavLink to={urls.knowledgeGroups}>
             <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.knowledge ? 'text-blue-500' : 'text-black'} `}>دانشنامه ها</Text>
           </NavLink>
           <NavLink to={urls.library}>
@@ -90,13 +90,13 @@ const BaseLayout = () => {
                   onClick: () => navigate(urls.home),
               },
               {
-                  key: urls.research,
+                  key: urls.researchGroups,
                   icon: <LuSearch />,
                   label: <Text>پژوهشنامه</Text>,
                   onClick: () => navigate(urls.research)
               },
               {
-                  key: urls.knowledge,
+                  key: urls.knowledgeGroups,
                   icon: <PiNotePencilFill />,
                   label: <Text>دانشنامه</Text>,
                   onClick: () => navigate(urls.knowledge)

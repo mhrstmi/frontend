@@ -1,14 +1,19 @@
 import React, { useEffect } from 'react'
-import Item from '../../../components/Item'
-import useAPI from '../../../hooks/useAPI'
+import Item from '../../../../components/Item'
+import useAPI from '../../../../hooks/useAPI'
 import { Breadcrumb, Spin } from 'antd'
-import { Text, Title } from '../../../components'
-import { HomeOutlined } from '@ant-design/icons'
-import urls from '../../../routes/urls'
+import { Text, Title } from '../../../../components'
+import { GroupOutlined, HomeOutlined } from '@ant-design/icons'
+import urls from '../../../../routes/urls'
+import { useParams } from 'react-router-dom'
 
 const Research = () => {
-  const getResearch = useAPI('/research', 'get', {})
-  useEffect(() => {console.log(getResearch)}, [getResearch])
+  const params = useParams()
+  const getResearch = useAPI('/research/{group}/list', 'get', {
+    param: {
+      group: Number(params.groupId)
+    }
+  })
 
   return (
     <div className='p-3 md:p-5 xl:p-10'>
@@ -19,6 +24,10 @@ const Research = () => {
             {
               href: urls.home,
               title: <Text fontSize='lg' fontWeight='bold'><HomeOutlined className='text-lg font-bold'/> صفحه اصلی</Text>,
+            },
+            {
+              href: urls.knowledgeGroups,
+              title: <Text fontSize='lg' fontWeight='bold'><GroupOutlined className='text-lg font-bold ml-1' />گروه بندی پژوهشنامه ها</Text>,
             },
             {
               title: <Text fontSize='lg' fontWeight='bold'>پژوهشنامه ها</Text>,

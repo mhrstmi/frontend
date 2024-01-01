@@ -1,6 +1,6 @@
 import urls from '@routes/urls'
 import { useNavigate } from 'react-router-dom'
-import { Carousel, Divider } from 'antd'
+import { Carousel, Divider, Image } from 'antd'
 import React, { useEffect, useState } from 'react';
 import Text from '@components/Text';
 import useMediaQuery from '@hooks/useMediaQuery';
@@ -28,9 +28,13 @@ const Home = () => {
       <div className='p-5'>
         <div className='w-full pb-5 rounded-lg'>
           <Carousel effect="fade" autoplay>
-              <div>
-                <img src="http://188.213.197.187:7080/api/uploads/library/35220f1c-be3e-49a5-a687-d73b46181821.png" className='h-52 md:h-[500px] bg-mid-green' />
-              </div>
+            {slider.data?.map((item, index) => (
+              <img 
+                key={index} 
+                src={import.meta.env['REACT_APP_SERVER_URL'] + item.path} 
+                className='xl:max-h-[500px] lg:max-h-[400px] md:max-h-[300px] max-h-[200px] w-full object-cover'
+              />
+            ))}
           </Carousel>
         </div>
         <div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-5'>
@@ -90,9 +94,9 @@ const Home = () => {
                 <div className='flex justify-center items-center p-5'>
                   <Text fontSize='3xl' fontWeight='bold'>تقویم مقاومت</Text>
                 </div>
-                <ConfigProvider locale={fa_IR}  direction="rtl">
+                <ConfigProvider locale={fa_IR}  direction="ltr">
                   <Calendar 
-                    fullscreen={false} 
+                    fullscreen={false}
                     cellRender={(value) => (
                       <div className='w-full h-full flex flex-col justify-center items-center'>
                         {calendar.data?.find(item => dayjs(item.dateShow) === value) && <span className="rounded-full bg-red-500 w-1 h-1"></span>}

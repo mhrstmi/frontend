@@ -134,9 +134,10 @@ const Dashboard = () => {
               <Text fontSize='base' fontWeight='bold' className='text-white'>آپلود</Text>
             </Button>
           </Form>
-          <div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5'>
             {getSlider.data?.map((item, index) => (
-              <Image 
+              <Image
+                height={100} 
                 key={index} 
                 src={import.meta.env['REACT_APP_SERVER_URL'] + item.path} 
                 className='w-full object-cover rounded-lg transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl'

@@ -63,7 +63,7 @@ const EditGroup: React.FC<propsTypes> = ({ section, onClose, isModalOpen, setSta
         try{
             await editGroup.mutateAsync({
                 //@ts-ignore
-                "file[]": [file],
+                file: file,
                 name: form.getFieldValue("name")
             })
             refetch()

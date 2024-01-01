@@ -21,7 +21,7 @@ const Header: React.FC<any> = ({ section, title, onClick, openModal }) => {
           <Text fontSize='2xl' fontWeight='black' className="tracking-tight text-slate-900">
             {title}
           </Text>
-          {section && 
+          {onClick && 
             <div className='flex flex-col md:flex-row gap-3'>
               {openModal && 
                 <Button onClick={openModal} className='flex items-center gap-3 md:w-fit w-full py-5 bg-dark-green'>

@@ -1,7 +1,9 @@
 const urls = {
     home: '/',
-    research: '/research',
-    knowledge: '/knowledge',
+    researchGroups: '/research/groups',
+    research: '/research/groups/:groupId',
+    knowledgeGroups: '/knowledge/groups',
+    knowledge: '/knowledge/groups/:groupId',
     library: '/library',
 
     // admin
@@ -17,6 +19,8 @@ const urls = {
     adminUploadLibrary: '/admin/library/upload',
     adminEditLibrary: '/admin/library/edit/:id',
     adminCalendar: '/admin/calendar',
+    adminUploadCalendar: '/admin/calendar/upload',
+    adminEditCalendar: '/admin/calendar/edit/:id',
     adminSchool: '/admin/school',
 
 
