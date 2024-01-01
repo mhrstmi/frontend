@@ -40,12 +40,12 @@ const Home = () => {
         <div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-5'>
           <div className='w-full h-fit flex flex-col gap-3 col-span-2 lg:col-span-1'>
             <div className='w-full grid grid-cols-2 md:grid-cols-3 gap-3'>
-              <div onClick={() => navigate(urls.research)} className='cursor-pointer transform transition-all hover:-translate-y-2 duration-300 hover:shadow-4xl relative bg-red-500 rounded-lg shadow-2xl min-h-[150px] col-span-2 md:col-span-1'>
+              <div onClick={() => navigate(urls.researchGroups)} className='cursor-pointer transform transition-all hover:-translate-y-2 duration-300 hover:shadow-4xl relative bg-red-500 rounded-lg shadow-2xl min-h-[150px] col-span-2 md:col-span-1'>
                 <div className='absolute bottom-0 w-full rounded-lg flex items-center justify-center bg-black bg-opacity-50 p-2'>
                   <Text fontSize='sm' fontWeight='bold' className='text-white'>پژوهشنامه</Text>
                 </div>
               </div>
-              <div onClick={() => navigate(urls.knowledge)} className='cursor-pointer transform transition-all hover:-translate-y-2 duration-300 hover:shadow-4xl relative bg-orange-500 rounded-lg shadow-2xl min-h-[150px]'>
+              <div onClick={() => navigate(urls.knowledgeGroups)} className='cursor-pointer transform transition-all hover:-translate-y-2 duration-300 hover:shadow-4xl relative bg-orange-500 rounded-lg shadow-2xl min-h-[150px]'>
                 <div className='absolute bottom-0 w-full rounded-lg flex items-center justify-center bg-black bg-opacity-50 p-2'>
                   <Text fontSize='sm' fontWeight='bold' className='text-white'>دانشنامه</Text>
                 </div>

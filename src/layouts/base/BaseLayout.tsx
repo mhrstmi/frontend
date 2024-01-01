@@ -38,10 +38,10 @@ const BaseLayout = () => {
             <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.home ? 'text-blue-500' : 'text-black'} `}>صفحه اصلی</Text>
           </NavLink>
           <NavLink to={urls.researchGroups}>
-            <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.research ? 'text-blue-500' : 'text-black'} `}>پژوهشنامه ها</Text>
+            <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.researchGroups ? 'text-blue-500' : 'text-black'} `}>پژوهشنامه ها</Text>
           </NavLink>
           <NavLink to={urls.knowledgeGroups}>
-            <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.knowledge ? 'text-blue-500' : 'text-black'} `}>دانشنامه ها</Text>
+            <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.knowledgeGroups ? 'text-blue-500' : 'text-black'} `}>دانشنامه ها</Text>
           </NavLink>
           <NavLink to={urls.library}>
             <Text fontSize='base' fontWeight='bold' className={`${currentUrl === urls.library ? 'text-blue-500' : 'text-black'} `}>کتابخانه</Text>
